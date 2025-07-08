@@ -1,3 +1,10 @@
+import Navbar from "@/components/ui/Navbar";
+import { Fragment } from "react";
+
 export default function Home() {
-  return <h1>Hello world</h1>;
+  return (
+    <Fragment>
+      <Navbar />
+    </Fragment>
+  );
 }
