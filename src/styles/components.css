@@ -1,0 +1,6 @@
+@layer components {
+  .container {
+    margin: auto;
+    padding: 0 30px;
+  }
+}
