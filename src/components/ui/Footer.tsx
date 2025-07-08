@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="bg-neutral-900 p-5">
       <div className="container">
-        <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <Image
               width="30"

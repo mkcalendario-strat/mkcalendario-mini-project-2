@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden">
       <div className="container">
-        <div className="flex min-h-[calc(100vh-51px)] flex-col justify-center">
+        <div className="flex min-h-[calc(100vh-65px-72px)] flex-col justify-center">
           <div className="flex flex-col items-center gap-[50px] py-[50px] md:flex-row">
             <div className="md:w-[55%]">
               <h1 className="mb-3 text-5xl font-bold tracking-tighter lg:text-7xl">

@@ -8,10 +8,10 @@ const LINKS = [
 
 export default function Navbar() {
   return (
-    <nav className="relative border-b-1 border-neutral-100 bg-neutral-900">
+    <nav className="relative border-b-1 border-neutral-100 bg-neutral-900 py-3">
       <div className="container">
         <div className="flex items-center justify-between">
-          <div className="relative aspect-square w-[70px]">
+          <div className="relative aspect-square w-[40px]">
             <Image
               fill
               alt="brand logo"
@@ -26,7 +26,7 @@ export default function Navbar() {
               <Link
                 key={i}
                 href={link.path}
-                className="text-neutral-100">
+                className="text-lg font-bold text-neutral-100">
                 {link.label}
               </Link>
             ))}
