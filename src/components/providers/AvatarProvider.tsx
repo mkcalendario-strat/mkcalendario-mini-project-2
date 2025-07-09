@@ -1,3 +1,5 @@
+"use client";
+
 import ReactNiceAvatar, { genConfig } from "react-nice-avatar";
 
 interface AvatarProviderProps {

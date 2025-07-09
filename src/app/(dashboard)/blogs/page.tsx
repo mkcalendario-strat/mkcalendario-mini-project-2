@@ -3,7 +3,9 @@ import BlogCard from "@/components/ui/BlogCard";
 import { Fragment } from "react";
 
 export default function Blogs() {
-  const blogs = [
+  type BlogsPreview = Omit<Blog, "handle">[];
+
+  const blogs: BlogsPreview = [
     {
       id: "1",
       image: "/assets/images/graphics/people-puzzle.png",
