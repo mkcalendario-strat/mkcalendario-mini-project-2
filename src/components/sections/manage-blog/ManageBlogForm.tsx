@@ -5,7 +5,6 @@ import Input from "@/components/ui/Input";
 export default function ManageBlogForm() {
   return (
     <DashboardContent
-      tight
       title="Manage Blogs"
       className="flex flex-col gap-2 bg-white p-7 shadow-sm"
       description="Edit or delete blogs using a blog key.">
