@@ -1,2 +1,44 @@
 @layer utilities {
+  .dashboard-grid {
+    display: grid;
+
+    grid-template-areas:
+      "nav"
+      "main";
+
+    grid-template-columns: auto;
+    grid-template-rows: 65px 1fr;
+  }
+
+  .dashboard-nav {
+    grid-area: nav;
+  }
+
+  .dashboard-main {
+    grid-area: main;
+  }
+
+  .dashboard-sidebar {
+    grid-area: sidebar;
+  }
+
+  @media screen and (min-width: 768px) {
+    .dashboard-grid {
+      grid-template-areas:
+        "nav nav"
+        "sidebar main";
+
+      grid-template-columns: 88px 1fr;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .dashboard-grid {
+      grid-template-areas:
+        "nav nav"
+        "sidebar main";
+
+      grid-template-columns: 300px 1fr;
+    }
+  }
 }
