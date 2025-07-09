@@ -1,6 +1,6 @@
 interface Blog {
   id: string;
-  handle?: string;
+  handle: string;
   image: string;
   title: string;
   description: string;
