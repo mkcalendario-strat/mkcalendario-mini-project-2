@@ -86,7 +86,7 @@ function Sidebar({ isOpen }: SidebarProps) {
   if (!isOpen) return null;
 
   return (
-    <aside className="dashboard-sidebar fixed top-[65px] h-full w-full bg-white md:w-[88px] lg:w-[300px]">
+    <aside className="dashboard-sidebar fixed top-[65px] z-[1] h-full w-full bg-white md:w-[88px] lg:w-[300px]">
       <div className="flex h-full flex-col gap-1 overflow-y-auto p-[15px]">
         {LINKS.map(({ label, path, icon }, i) => {
           const isActive = pathname === path;
