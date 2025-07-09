@@ -14,6 +14,10 @@ export default function ManageBlogForm() {
         the unique key associated with a specific blog entry.
       </p>
       <Input
+        id="blog-id"
+        placeholder="Blog ID"
+      />
+      <Input
         id="key"
         placeholder="Blog Key"
       />
