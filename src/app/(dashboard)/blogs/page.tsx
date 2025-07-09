@@ -3,7 +3,7 @@ import BlogCard from "@/components/ui/BlogCard";
 import { Fragment } from "react";
 
 export default function Blogs() {
-  type BlogsPreview = Omit<Blog, "handle">[];
+  type BlogsPreview = Omit<Blog, "handle" | "comments" | "likes">[];
 
   const blogs: BlogsPreview = [
     {
