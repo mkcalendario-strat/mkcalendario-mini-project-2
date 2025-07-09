@@ -39,7 +39,7 @@ interface NavbarProps {
 
 function Navbar({ toggleSidebar }: NavbarProps) {
   return (
-    <nav className="dashboard-nav fixed top-0 left-0 w-full bg-neutral-900 p-[15px]">
+    <nav className="dashboard-nav fixed top-0 left-0 z-[1] w-full bg-neutral-900 p-[15px]">
       <div className="flex justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2">
@@ -113,9 +113,5 @@ interface MainProps {
 }
 
 function Main({ children }: MainProps) {
-  return (
-    <main className="dashboard-main py-[15px]">
-      <div className="container">{children}</div>
-    </main>
-  );
+  return <main className="dashboard-main py-[15px]">{children}</main>;
 }
