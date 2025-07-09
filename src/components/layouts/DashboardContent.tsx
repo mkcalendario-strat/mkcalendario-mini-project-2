@@ -2,6 +2,7 @@ interface DashboardContentProps {
   title?: string;
   description?: string;
   className?: string;
+  tight?: boolean;
   children: React.ReactNode;
 }
 
@@ -9,11 +10,12 @@ export function DashboardContent({
   title,
   description,
   className,
-  children
+  children,
+  tight
 }: DashboardContentProps) {
   return (
     <section className="pb-[75px]">
-      <div className="container">
+      <div className={tight ? "m-auto max-w-[750px] px-[30px]" : "container"}>
         <Title
           title={title}
           description={description}
