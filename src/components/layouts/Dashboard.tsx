@@ -39,7 +39,7 @@ interface NavbarProps {
 
 function Navbar({ toggleSidebar }: NavbarProps) {
   return (
-    <nav className="dashboard-nav fixed top-0 left-0 w-full bg-neutral-900 p-[15px]">
+    <nav className="dashboard-nav fixed top-0 left-0 z-[1] w-full bg-neutral-900 p-[15px]">
       <div className="flex justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2">
@@ -86,7 +86,7 @@ function Sidebar({ isOpen }: SidebarProps) {
   if (!isOpen) return null;
 
   return (
-    <aside className="dashboard-sidebar fixed top-[65px] h-full w-full bg-white md:w-[88px] lg:w-[300px]">
+    <aside className="dashboard-sidebar fixed top-[65px] z-[1] h-full w-full bg-white md:w-[88px] lg:w-[300px]">
       <div className="flex h-full flex-col gap-1 overflow-y-auto p-[15px]">
         {LINKS.map(({ label, path, icon }, i) => {
           const isActive = pathname === path;
@@ -113,9 +113,5 @@ interface MainProps {
 }
 
 function Main({ children }: MainProps) {
-  return (
-    <main className="dashboard-main py-[15px]">
-      <div className="container">{children}</div>
-    </main>
-  );
+  return <main className="dashboard-main py-[15px]">{children}</main>;
 }
