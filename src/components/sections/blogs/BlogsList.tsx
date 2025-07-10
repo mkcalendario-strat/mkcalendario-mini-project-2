@@ -14,7 +14,7 @@ export default function BlogsList() {
       timestamp: "2025-07-09T14:32:00Z",
       content:
         "From AI-powered tooling to edge-first architectures, the web is evolving faster than ever.",
-      user: "Alex Johnson",
+      userName: "Alex Johnson",
       userAvatarSeed: "1.4"
     },
     {
@@ -26,7 +26,7 @@ export default function BlogsList() {
       timestamp: "2025-07-08T10:12:00Z",
       content:
         "From autocomplete to autonomous code generation, AI tools are redefining developer productivity.",
-      user: "Jamie Lee",
+      userName: "Jamie Lee",
       userAvatarSeed: "2.1"
     },
     {
@@ -38,7 +38,7 @@ export default function BlogsList() {
       timestamp: "2025-07-07T08:45:00Z",
       content:
         "A strong design system bridges the gap between development and design while keeping your product scalable.",
-      user: "Morgan Rae",
+      userName: "Morgan Rae",
       userAvatarSeed: "3.7"
     }
   ];

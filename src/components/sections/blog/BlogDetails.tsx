@@ -8,7 +8,7 @@ export default function BlogDetails({
   title,
   description,
   timestamp,
-  user,
+  userName,
   userAvatarSeed
 }: BlogDetails) {
   return (
@@ -35,7 +35,7 @@ export default function BlogDetails({
         />
 
         <div className="text-neutral-700">
-          <p className="leading-[15px] font-medium">{user}</p>
+          <p className="leading-[15px] font-medium">{userName}</p>
           <p className="text-xs">{timestamp}</p>
         </div>
       </div>

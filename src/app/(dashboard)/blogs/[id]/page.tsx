@@ -43,7 +43,7 @@ export default function Blog() {
       "Explore the latest trends reshaping how we build for the web.",
     timestamp: "2025-07-09T14:32:00Z",
     content: blogHtml,
-    user: "Alex Johnson",
+    userName: "Alex Johnson",
     userAvatarSeed: "1.4"
   };
 

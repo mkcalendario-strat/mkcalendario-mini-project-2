@@ -6,7 +6,7 @@ interface Blog {
   description: string;
   timestamp: string;
   content: string;
-  user: string;
+  userName: string;
   userAvatarSeed: string;
   likes: string;
   comments: UserComment[];

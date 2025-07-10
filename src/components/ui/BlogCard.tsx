@@ -15,7 +15,7 @@ export default function BlogCard({
   title,
   description,
   timestamp,
-  user,
+  userName,
   userAvatarSeed
 }: BlogCardProps) {
   const baseClasses =
@@ -38,7 +38,7 @@ export default function BlogCard({
         />
       </div>
       <UserDetails
-        name={user}
+        name={userName}
         avatarSeed={userAvatarSeed}
         timestamp={timestamp}
       />
