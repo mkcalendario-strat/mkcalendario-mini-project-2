@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
+    "@vercel/blob": "^1.1.1",
     "drizzle-orm": "^0.44.2",
     "js-cookie": "^3.0.5",
     "next": "15.3.5",
