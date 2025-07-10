@@ -4,7 +4,7 @@ import path from "path";
 
 export async function GET(
   request: Request,
-  { params }: { params: { image: string } }
+  { params }: { params: Promise<{ image: string }> }
 ) {
   const { image } = await params;
 
