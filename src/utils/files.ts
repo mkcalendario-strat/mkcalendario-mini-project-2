@@ -1,6 +1,6 @@
-import fs from "fs/promises";
+import { put } from "@vercel/blob";
 
 export async function uploadBlogImage(file: File, fileName: string) {
-  const data = await file.arrayBuffer();
-  await fs.writeFile(`./uploads/${fileName}.jpg`, Buffer.from(data));
+  const { url } = await put(`${fileName}.jpg`, file, { access: "public" });
+  return url;
 }

@@ -32,7 +32,7 @@ export async function createBlog(formData: FormData) {
   }
 
   try {
-    await uploadBlogImage(image, newImageName);
+    const url = await uploadBlogImage(image, newImageName);
     const result = await db
       .insert(blogs)
       .values({
@@ -42,7 +42,7 @@ export async function createBlog(formData: FormData) {
         content,
         userName,
         userAvatarSeed,
-        image: `${newImageName}.jpg`
+        image: url
       })
       .returning({ insertedId: blogs.id });
 

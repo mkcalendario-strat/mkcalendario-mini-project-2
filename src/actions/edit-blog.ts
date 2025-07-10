@@ -67,8 +67,8 @@ export async function editBlog(
 
     if (image !== null && image.size !== 0) {
       const newImageName = uuid();
-      await uploadBlogImage(image, newImageName);
-      updateSet.image = `${newImageName}.jpg`;
+      const url = await uploadBlogImage(image, newImageName);
+      updateSet.image = url;
     }
 
     if (newKey) {
@@ -87,9 +87,7 @@ export async function editBlog(
 
     const id = result[0].editedId;
     return { success: true, message: "Success editing blog.", blogId: id };
-  } catch (e) {
-    console.log(e);
-
+  } catch {
     return { success: false, message: "Error. Cannot edit blog." };
   }
 }
