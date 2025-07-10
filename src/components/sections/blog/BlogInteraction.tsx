@@ -1,7 +1,7 @@
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import AvatarProvider from "@/components/providers/AvatarProvider";
 import CommentButton from "@/components/ui/CommentButton";
-import LikeButton from "@/components/ui/LikeButton";
+import HeartButton from "@/components/ui/HeartButton";
 
 type BlogInteractionProps = Pick<Blog, "id">;
 
@@ -23,7 +23,7 @@ export default function BlogInteraction({ id }: BlogInteractionProps) {
         </div>
 
         <div className="flex w-full gap-1 md:w-auto">
-          <LikeButton
+          <HeartButton
             id={id}
             className="w-[50%] md:w-auto"
           />

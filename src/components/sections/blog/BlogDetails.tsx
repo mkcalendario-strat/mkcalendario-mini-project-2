@@ -2,7 +2,7 @@ import { DashboardContent } from "@/components/layouts/DashboardContent";
 import AvatarProvider from "@/components/providers/AvatarProvider";
 import Image from "next/image";
 
-type BlogDetails = Omit<Blog, "key" | "likes" | "comments">;
+type BlogDetails = Omit<Blog, "key" | "hearts" | "comments">;
 
 export default function BlogDetails({
   id,

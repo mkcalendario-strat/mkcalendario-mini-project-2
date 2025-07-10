@@ -4,7 +4,7 @@ import AvatarProvider from "@/components/providers/AvatarProvider";
 import Image from "next/image";
 import Link from "next/link";
 
-interface BlogCardProps extends Omit<Blog, "key" | "comments" | "likes"> {
+interface BlogCardProps extends Omit<Blog, "key" | "comments" | "hearts"> {
   className?: string;
 }
 

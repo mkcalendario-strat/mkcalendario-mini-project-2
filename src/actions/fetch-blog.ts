@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { blogs } from "../../drizzle/schema";
 import { db } from "./db";
 
-type BlogResult = Omit<Blog, "key" | "comments" | "likes"> | undefined;
+type BlogResult = Omit<Blog, "key" | "comments" | "hearts"> | undefined;
 
 export type FetchBlogReturn = {
   success: boolean;

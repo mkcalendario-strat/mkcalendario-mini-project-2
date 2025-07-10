@@ -8,6 +8,6 @@ interface Blog {
   content: string;
   userName: string;
   userAvatarSeed: string;
-  likes: string;
+  hearts: string;
   comments: UserComment[];
 }
