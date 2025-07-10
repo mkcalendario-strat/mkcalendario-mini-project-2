@@ -1,45 +1,104 @@
 "use client";
 
+import Cookies from "js-cookie";
+
+import { createBlog } from "@/actions/create-blog";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import WYSIWYGEditor from "@/components/ui/WYSIWYGEditor";
+import { showErrorToast, showSuccessToast } from "@/utils/toast";
+import { redirect, RedirectType } from "next/navigation";
+import { useRef, useState } from "react";
 
 export default function CreateBlogForm() {
-  const title = "Create Blog";
-  const description = "Create and publish blogs that make sense.";
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  const [blogData, setBlogData] = useState({
+    title: "",
+    description: "",
+    content: "",
+    image: null as File | null
+  });
+
+  const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = evt.target;
+    setBlogData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const file = evt.target.files?.[0] ?? null;
+    setBlogData((prev) => ({ ...prev, image: file }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(formRef.current as HTMLFormElement);
+
+    const user = Cookies.get("user") as string;
+    const userAvatarSeed = Cookies.get("user") as string;
+
+    formData.append("user-name", user);
+    formData.append("user-avatar-seed", userAvatarSeed);
+
+    const { success, message, blogId } = await createBlog(formData);
+
+    if (!success) {
+      showErrorToast(message);
+      return null;
+    }
+
+    showSuccessToast(message);
+    redirect(`/blog/${blogId}`, RedirectType.push);
+  };
 
   return (
     <DashboardContent
-      title={title}
-      description={description}
-      className="flex flex-col gap-3 bg-white p-10">
-      <Input
-        id="title"
-        placeholder="Title"
-      />
-      <Input
-        id="description"
-        placeholder="Description"
-      />
-      <WYSIWYGEditor
-        id="content"
-        placeholder="Blog Content"
-        onChange={(v: string) => console.log(v)}
-      />
-      <Input
-        id="image"
-        type="file"
-        accept="image/jpeg,image/png"
-        placeholder="Image"
-      />
-
-      <div className="flex flex-wrap gap-2">
-        <Button className="bg-neutral-900 text-neutral-100">
-          <i className="far fa-check" />
-          Publish Blog
-        </Button>
-      </div>
+      title="Create Blog"
+      description="Create and publish blogs that make sense."
+      className="bg-white p-10">
+      <form
+        ref={formRef}
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-3">
+        <Input
+          id="title"
+          name="title"
+          placeholder="Title"
+          value={blogData.title}
+          onChange={handleInputChange}
+        />
+        <Input
+          id="description"
+          name="description"
+          placeholder="Description"
+          value={blogData.description}
+          onChange={handleInputChange}
+        />
+        <WYSIWYGEditor
+          id="content"
+          name="content"
+          placeholder="Blog Content"
+          onChange={handleInputChange}
+          value={blogData.content}
+        />
+        <Input
+          id="image"
+          type="file"
+          name="image"
+          accept="image/jpeg,image/png"
+          placeholder="Image"
+          onChange={handleImageChange}
+        />
+        <div className="flex flex-wrap gap-2">
+          <Button
+            type="submit"
+            className="bg-neutral-900 text-neutral-100">
+            <i className="far fa-check" />
+            Publish Blog
+          </Button>
+        </div>
+      </form>
     </DashboardContent>
   );
 }
