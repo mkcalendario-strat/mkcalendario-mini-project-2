@@ -57,7 +57,7 @@ function BlogImage({ image, title }: BlogImageProps) {
       <Image
         fill
         alt={title}
-        src={image}
+        src={`/api/image/${image}`}
         className="object-cover duration-100 group-hover:scale-[101%]"
         sizes="(min-width: 768px) 100vw, 50vw"
       />
