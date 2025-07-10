@@ -1,26 +1,30 @@
-"use client";
-
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { ChangeEvent } from "react";
 import "react-quill-new/dist/quill.snow.css";
+
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 interface WYSIWYGEditorProps {
   id: string;
+  name: string;
+  value: string;
   placeholder: string;
-  onChange: (content: string) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function WYSIWYGEditor({
   id,
+  name,
   placeholder,
+  value,
   onChange
 }: WYSIWYGEditorProps) {
-  const [value, setValue] = useState<string>("");
-
   const handleChange = (content: string) => {
-    setValue(content);
-    onChange(content);
+    const fakeEvent = {
+      target: { name, value: content }
+    } as ChangeEvent<HTMLInputElement>;
+
+    onChange(fakeEvent);
   };
 
   return (
@@ -30,12 +34,20 @@ export default function WYSIWYGEditor({
         className="text-lg font-medium">
         {placeholder}
       </label>
+
       <ReactQuill
-        id={id}
-        theme="snow"
         value={value}
-        className="border-2"
         onChange={handleChange}
+        className="border-2"
+        theme="snow"
+      />
+
+      {/* Hidden input to make it submit with FormData */}
+      <input
+        id={id}
+        type="hidden"
+        name={name}
+        value={value}
       />
     </div>
   );
