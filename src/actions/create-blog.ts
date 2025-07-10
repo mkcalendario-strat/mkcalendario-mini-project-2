@@ -1,10 +1,9 @@
 "use server";
 
+import { uploadBlogImage } from "@/utils/files";
 import { v4 as uuidv4 } from "uuid";
 import { blogs } from "../../drizzle/schema";
 import { db } from "./db";
-
-const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png"];
 
 export async function createBlog(formData: FormData) {
   const title = formData.get("title")?.toString().trim();
@@ -27,11 +26,12 @@ export async function createBlog(formData: FormData) {
     return { success: false, message: "All fields are required." };
   }
 
-  if (!ALLOWED_IMAGE_TYPES.includes(image.type)) {
+  if (image.type !== "image/jpeg") {
     return { success: false, message: "Unsupported image type." };
   }
 
   try {
+    await uploadBlogImage(image, newImageName);
     const result = await db
       .insert(blogs)
       .values({
@@ -40,7 +40,8 @@ export async function createBlog(formData: FormData) {
         description,
         content,
         userName,
-        userAvatarSeed
+        userAvatarSeed,
+        image: `${newImageName}.jpg`
       })
       .returning({ insertedId: blogs.id });
 

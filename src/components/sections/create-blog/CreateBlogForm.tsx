@@ -86,7 +86,7 @@ export default function CreateBlogForm() {
           id="image"
           type="file"
           name="image"
-          accept="image/jpeg,image/png"
+          accept="image/jpeg"
           placeholder="Image"
           onChange={handleImageChange}
         />

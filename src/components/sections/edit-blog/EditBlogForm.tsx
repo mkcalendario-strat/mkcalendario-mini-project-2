@@ -27,7 +27,7 @@ export default function EditBlogForm() {
       <Input
         id="image"
         type="file"
-        accept="image/jpeg,image/png"
+        accept="image/jpeg"
         placeholder="Image"
       />
 
