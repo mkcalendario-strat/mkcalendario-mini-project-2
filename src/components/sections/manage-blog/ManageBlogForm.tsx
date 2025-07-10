@@ -67,6 +67,7 @@ export default function ManageBlogForm() {
       <Input
         id="key"
         name="key"
+        type="password"
         placeholder="Blog Key"
         value={formData.key}
         onChange={handleInputChange}
