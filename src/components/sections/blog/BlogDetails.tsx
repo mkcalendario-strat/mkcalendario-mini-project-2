@@ -2,13 +2,14 @@ import { DashboardContent } from "@/components/layouts/DashboardContent";
 import AvatarProvider from "@/components/providers/AvatarProvider";
 import Image from "next/image";
 
-type BlogDetails = Omit<Blog, "id" | "handle" | "likes" | "comments">;
+type BlogDetails = Omit<Blog, "id" | "key" | "likes" | "comments">;
 
 export default function BlogDetails({
   title,
   description,
   timestamp,
-  posterData
+  user,
+  userAvatarSeed
 }: BlogDetails) {
   return (
     <DashboardContent
@@ -30,11 +31,11 @@ export default function BlogDetails({
       <div className="flex flex-wrap items-center gap-3">
         <AvatarProvider
           size="w-[40px]"
-          seed={posterData.avatarSeed}
+          seed={userAvatarSeed}
         />
 
         <div className="text-neutral-700">
-          <p className="leading-[15px] font-medium">{posterData.name}</p>
+          <p className="leading-[15px] font-medium">{user}</p>
           <p className="text-xs">{timestamp}</p>
         </div>
       </div>
