@@ -12,7 +12,7 @@ export async function createBlog(formData: FormData) {
   const userName = formData.get("user-name")?.toString().trim();
   const userAvatarSeed = formData.get("user-avatar-seed")?.toString().trim();
   const image = formData.get("image") as File | null;
-  const key = uuidv4();
+  const key = formData.get("key")?.toString().trim();
   const newImageName = uuidv4();
 
   if (
@@ -20,6 +20,7 @@ export async function createBlog(formData: FormData) {
     !description ||
     !content ||
     !userName ||
+    !key ||
     !userAvatarSeed ||
     !image
   ) {
@@ -46,7 +47,8 @@ export async function createBlog(formData: FormData) {
       .returning({ insertedId: blogs.id });
 
     const blogId = result[0].insertedId;
-    return { success: true, message: "Success creating blog.", blogId };
+    const message = `Success creating blog. Blog ID is ${blogId}.`;
+    return { success: true, message, blogId };
   } catch {
     return { success: false, message: "Error. Cannot create blog." };
   }

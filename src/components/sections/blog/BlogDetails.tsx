@@ -2,9 +2,10 @@ import { DashboardContent } from "@/components/layouts/DashboardContent";
 import AvatarProvider from "@/components/providers/AvatarProvider";
 import Image from "next/image";
 
-type BlogDetails = Omit<Blog, "id" | "key" | "likes" | "comments">;
+type BlogDetails = Omit<Blog, "key" | "likes" | "comments">;
 
 export default function BlogDetails({
+  id,
   title,
   description,
   image,
@@ -19,11 +20,12 @@ export default function BlogDetails({
       <div className="relative aspect-video w-full bg-neutral-200">
         <Image
           fill
-          alt="people puzzle"
+          alt={title}
           className="object-cover"
           src={`/api/image/${image}`}
         />
       </div>
+      <p className="text-xs text-neutral-500">Blog ID: {id}</p>
       <h1 className="text-2xl font-black tracking-tight md:text-4xl">
         {title}
       </h1>

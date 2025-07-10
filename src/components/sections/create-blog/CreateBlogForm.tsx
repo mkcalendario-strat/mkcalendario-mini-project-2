@@ -18,6 +18,7 @@ export default function CreateBlogForm() {
     title: "",
     description: "",
     content: "",
+    key: "",
     image: null as File | null
   });
 
@@ -89,6 +90,13 @@ export default function CreateBlogForm() {
           accept="image/jpeg"
           placeholder="Image"
           onChange={handleImageChange}
+        />
+        <Input
+          id="key"
+          name="key"
+          type="password"
+          placeholder="Control Key"
+          onChange={handleInputChange}
         />
         <div className="flex flex-wrap gap-2">
           <Button

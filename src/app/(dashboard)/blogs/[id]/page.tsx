@@ -25,6 +25,7 @@ export default async function Blog({
   return (
     <Fragment>
       <BlogDetails
+        id={data.id}
         image={data.image}
         title={data.title}
         description={data.description}

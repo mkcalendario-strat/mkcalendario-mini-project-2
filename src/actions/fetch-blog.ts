@@ -1,6 +1,6 @@
 "use server";
 
-import { eq, getTableColumns } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { blogs } from "../../drizzle/schema";
 import { db } from "./db";
 
@@ -14,11 +14,8 @@ export type FetchBlogReturn = {
 
 export default async function fetchBlog(id: string): Promise<FetchBlogReturn> {
   try {
-    const { key, ...rest } = getTableColumns(blogs);
-    void key;
-
     const result = await db
-      .select({ ...rest })
+      .select()
       .from(blogs)
       .where(eq(blogs.id, parseInt(id)))
       .orderBy(blogs.id);
