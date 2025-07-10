@@ -65,7 +65,7 @@ export async function editBlog(
       content
     };
 
-    if (image !== null) {
+    if (image !== null && image.size !== 0) {
       const newImageName = uuid();
       await uploadBlogImage(image, newImageName);
       updateSet.image = `${newImageName}.jpg`;
