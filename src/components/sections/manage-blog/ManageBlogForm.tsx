@@ -1,8 +1,36 @@
+"use client";
+
+import deleteBlog from "@/actions/delete-blog";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import { showErrorToast, showSuccessToast } from "@/utils/toast";
+import { useState } from "react";
 
 export default function ManageBlogForm() {
+  const [formData, setFormData] = useState({
+    id: "",
+    key: ""
+  });
+
+  const handleDelete = async () => {
+    const { id, key } = formData;
+    const { success, message } = await deleteBlog(id, key);
+
+    if (!success) {
+      showErrorToast(message);
+      return null;
+    }
+
+    showSuccessToast(message);
+    setFormData({ id: "", key: "" });
+  };
+
+  const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = evt.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
     <DashboardContent
       title="Manage Blogs"
@@ -14,15 +42,23 @@ export default function ManageBlogForm() {
       </p>
       <Input
         id="blog-id"
+        name="id"
         placeholder="Blog ID"
+        value={formData.id}
+        onChange={handleInputChange}
       />
       <Input
         id="key"
+        name="key"
         placeholder="Blog Key"
+        value={formData.key}
+        onChange={handleInputChange}
       />
 
       <div className="flex flex-wrap gap-2">
-        <Button className="bg-red-500 text-neutral-100">
+        <Button
+          onClick={handleDelete}
+          className="bg-red-500 text-neutral-100">
           <i className="far fa-trash" />
           Delete
         </Button>
