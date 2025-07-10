@@ -24,6 +24,12 @@ export default function EditBlogForm() {
         placeholder="Blog Content"
         onChange={(v: string) => console.log(v)}
       />
+      <Input
+        id="image"
+        type="file"
+        accept="image/jpeg,image/png"
+        placeholder="Image"
+      />
 
       <div className="flex flex-wrap gap-2">
         <Button className="bg-green-700 text-neutral-100">
