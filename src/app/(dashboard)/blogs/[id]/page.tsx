@@ -33,7 +33,7 @@ const blogHtml = `
 `;
 
 export default function Blog() {
-  type BlogPreview = Omit<Blog, "handle" | "comments" | "likes">;
+  type BlogPreview = Omit<Blog, "key" | "comments" | "likes">;
 
   const blog: BlogPreview = {
     id: "1",
@@ -43,10 +43,8 @@ export default function Blog() {
       "Explore the latest trends reshaping how we build for the web.",
     timestamp: "2025-07-09T14:32:00Z",
     content: blogHtml,
-    posterData: {
-      name: "Alex Johnson",
-      avatarSeed: "1.4"
-    }
+    user: "Alex Johnson",
+    userAvatarSeed: "1.4"
   };
 
   return (
@@ -57,7 +55,8 @@ export default function Blog() {
         description={blog.description}
         content={blog.content}
         timestamp={blog.timestamp}
-        posterData={blog.posterData}
+        user={blog.user}
+        userAvatarSeed={blog.userAvatarSeed}
       />
       <BlogContent content={blog.content} />
       <BlogInteraction id={blog.id} />

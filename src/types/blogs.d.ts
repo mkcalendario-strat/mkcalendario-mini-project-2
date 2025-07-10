@@ -1,12 +1,13 @@
 interface Blog {
   id: string;
-  handle: string;
+  key: string;
   image: string;
   title: string;
   description: string;
   timestamp: string;
   content: string;
-  posterData: User;
+  user: string;
+  userAvatarSeed: string;
   likes: string;
   comments: UserComment[];
 }

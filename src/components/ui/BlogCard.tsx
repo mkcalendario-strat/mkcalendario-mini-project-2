@@ -4,7 +4,7 @@ import AvatarProvider from "@/components/providers/AvatarProvider";
 import Image from "next/image";
 import Link from "next/link";
 
-interface BlogCardProps extends Omit<Blog, "handle" | "comments" | "likes"> {
+interface BlogCardProps extends Omit<Blog, "key" | "comments" | "likes"> {
   className?: string;
 }
 
@@ -15,7 +15,8 @@ export default function BlogCard({
   title,
   description,
   timestamp,
-  posterData
+  user,
+  userAvatarSeed
 }: BlogCardProps) {
   const baseClasses =
     "gap-5 shadow-sm bg-white p-3 flex flex-col justify-between group";
@@ -37,8 +38,8 @@ export default function BlogCard({
         />
       </div>
       <UserDetails
-        name={posterData.name}
-        avatarSeed={posterData.avatarSeed}
+        name={user}
+        avatarSeed={userAvatarSeed}
         timestamp={timestamp}
       />
     </Link>

@@ -2,7 +2,7 @@ import { DashboardContent } from "@/components/layouts/DashboardContent";
 import BlogCard from "@/components/ui/BlogCard";
 
 export default function BlogsList() {
-  type BlogsPreview = Omit<Blog, "handle" | "comments" | "likes">[];
+  type BlogsPreview = Omit<Blog, "key" | "comments" | "likes">[];
 
   const blogs: BlogsPreview = [
     {
@@ -14,10 +14,8 @@ export default function BlogsList() {
       timestamp: "2025-07-09T14:32:00Z",
       content:
         "From AI-powered tooling to edge-first architectures, the web is evolving faster than ever.",
-      posterData: {
-        name: "Alex Johnson",
-        avatarSeed: "1.4"
-      }
+      user: "Alex Johnson",
+      userAvatarSeed: "1.4"
     },
     {
       id: "2",
@@ -28,10 +26,8 @@ export default function BlogsList() {
       timestamp: "2025-07-08T10:12:00Z",
       content:
         "From autocomplete to autonomous code generation, AI tools are redefining developer productivity.",
-      posterData: {
-        name: "Jamie Lee",
-        avatarSeed: "2.1"
-      }
+      user: "Jamie Lee",
+      userAvatarSeed: "2.1"
     },
     {
       id: "3",
@@ -42,10 +38,8 @@ export default function BlogsList() {
       timestamp: "2025-07-07T08:45:00Z",
       content:
         "A strong design system bridges the gap between development and design while keeping your product scalable.",
-      posterData: {
-        name: "Morgan Rae",
-        avatarSeed: "3.7"
-      }
+      user: "Morgan Rae",
+      userAvatarSeed: "3.7"
     }
   ];
 
