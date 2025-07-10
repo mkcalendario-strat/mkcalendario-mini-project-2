@@ -6,11 +6,11 @@ import { showErrorToast } from "@/utils/toast";
 import { redirect, RedirectType } from "next/navigation";
 import { Fragment } from "react";
 
-export default async function Blog({
-  params
-}: {
+interface BlogProps {
   params: Promise<{ id: string }>;
-}) {
+}
+
+export default async function Blog({ params }: BlogProps) {
   const { id } = await params;
   const { success, message, data } = await fetchBlog(id);
 
