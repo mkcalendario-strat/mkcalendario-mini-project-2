@@ -35,10 +35,10 @@ export default function CreateBlogForm() {
     e.preventDefault();
     const formData = new FormData(formRef.current as HTMLFormElement);
 
-    const user = Cookies.get("user") as string;
-    const userAvatarSeed = Cookies.get("user") as string;
+    const userName = Cookies.get("user_name") as string;
+    const userAvatarSeed = Cookies.get("user_avatar_seed") as string;
 
-    formData.append("user-name", user);
+    formData.append("user-name", userName);
     formData.append("user-avatar-seed", userAvatarSeed);
 
     const { success, message, blogId } = await createBlog(formData);
@@ -49,7 +49,7 @@ export default function CreateBlogForm() {
     }
 
     showSuccessToast(message);
-    redirect(`/blog/${blogId}`, RedirectType.push);
+    redirect(`/blogs/${blogId}`, RedirectType.push);
   };
 
   return (

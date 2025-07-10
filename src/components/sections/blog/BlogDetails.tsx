@@ -7,8 +7,9 @@ type BlogDetails = Omit<Blog, "id" | "key" | "likes" | "comments">;
 export default function BlogDetails({
   title,
   description,
+  image,
   timestamp,
-  user,
+  userName,
   userAvatarSeed
 }: BlogDetails) {
   return (
@@ -20,7 +21,7 @@ export default function BlogDetails({
           fill
           alt="people puzzle"
           className="object-cover"
-          src="/assets/images/graphics/people-puzzle.png"
+          src={`/api/image/${image}`}
         />
       </div>
       <h1 className="text-2xl font-black tracking-tight md:text-4xl">
@@ -35,7 +36,7 @@ export default function BlogDetails({
         />
 
         <div className="text-neutral-700">
-          <p className="leading-[15px] font-medium">{user}</p>
+          <p className="leading-[15px] font-medium">{userName}</p>
           <p className="text-xs">{timestamp}</p>
         </div>
       </div>
