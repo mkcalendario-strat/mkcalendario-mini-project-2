@@ -27,7 +27,7 @@ export default function HeartButton({ id, className }: HeartButtonProps) {
   const fetchHeartCount = useCallback(async () => {
     const { success, message, hearts } = await getHearts(id);
 
-    if (!success || !hearts) {
+    if (!success || typeof hearts === "undefined") {
       showErrorToast(message);
       return null;
     }
