@@ -1,10 +1,12 @@
 "use client";
 
 import deleteBlog from "@/actions/delete-blog";
+import checkBlogKey from "@/actions/edit-blog";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
+import { redirect, RedirectType } from "next/navigation";
 import { useState } from "react";
 
 export default function ManageBlogForm() {
@@ -24,6 +26,21 @@ export default function ManageBlogForm() {
 
     showSuccessToast(message);
     setFormData({ id: "", key: "" });
+  };
+
+  const handleEdit = async () => {
+    const { id, key } = formData;
+
+    // Challenge control key
+    const { success, message } = await checkBlogKey(id, key);
+
+    if (!success) {
+      return showErrorToast(message);
+    }
+
+    showSuccessToast(message);
+    const url = `/blogs/edit/${id}/${key}`;
+    redirect(url, RedirectType.push);
   };
 
   const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +79,9 @@ export default function ManageBlogForm() {
           <i className="far fa-trash" />
           Delete
         </Button>
-        <Button className="bg-green-700 text-neutral-100">
+        <Button
+          onClick={handleEdit}
+          className="bg-green-700 text-neutral-100">
           <i className="far fa-edit" />
           Edit
         </Button>
