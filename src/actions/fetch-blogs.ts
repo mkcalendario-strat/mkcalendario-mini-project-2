@@ -4,7 +4,7 @@ import { getTableColumns } from "drizzle-orm";
 import { blogs } from "../../drizzle/schema";
 import { db } from "./db";
 
-type BlogsResult = Omit<Blog, "key" | "comments" | "likes">[] | undefined;
+type BlogsResult = Omit<Blog, "key" | "comments" | "hearts">[] | undefined;
 
 export type FetchBlogsReturn = {
   success: boolean;
