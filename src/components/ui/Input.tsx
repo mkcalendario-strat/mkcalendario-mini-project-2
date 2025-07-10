@@ -1,5 +1,6 @@
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
+  tip?: string;
   placeholder: string;
   className?: string;
 }
@@ -8,6 +9,7 @@ export default function Input({
   id,
   placeholder,
   className,
+  tip,
   ...props
 }: InputProps) {
   const baseClasses = "flex flex-col gap-1";
@@ -15,11 +17,16 @@ export default function Input({
 
   return (
     <div className={classes}>
-      <label
-        htmlFor={id}
-        className="text-lg font-medium">
-        {placeholder}
-      </label>
+      <div className="flex flex-wrap items-center gap-1">
+        <label
+          htmlFor={id}
+          className="text-lg font-medium">
+          {placeholder}
+        </label>
+        {tip && (
+          <p className="bg-neutral-900/20 px-[6px] py-[3px] text-xs">{tip}</p>
+        )}
+      </div>
       <input
         id={id}
         {...props}
