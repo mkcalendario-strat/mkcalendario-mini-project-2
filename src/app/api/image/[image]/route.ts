@@ -6,7 +6,7 @@ export async function GET(
   request: Request,
   { params }: { params: { image: string } }
 ) {
-  const { image } = params;
+  const { image } = await params;
 
   const filePath = path.join(process.cwd(), "uploads", image);
 

@@ -7,6 +7,7 @@ type BlogDetails = Omit<Blog, "id" | "key" | "likes" | "comments">;
 export default function BlogDetails({
   title,
   description,
+  image,
   timestamp,
   userName,
   userAvatarSeed
@@ -20,7 +21,7 @@ export default function BlogDetails({
           fill
           alt="people puzzle"
           className="object-cover"
-          src="/assets/images/graphics/people-puzzle.png"
+          src={`/api/image/${image}`}
         />
       </div>
       <h1 className="text-2xl font-black tracking-tight md:text-4xl">
