@@ -1,4 +1,5 @@
 import fetchBlog from "@/actions/fetch-blog";
+import BlogCommentBox from "@/components/sections/blog/BlogCommentBox";
 import BlogContent from "@/components/sections/blog/BlogContent";
 import BlogDetails from "@/components/sections/blog/BlogDetails";
 import BlogInteraction from "@/components/sections/blog/BlogInteraction";
@@ -36,6 +37,7 @@ export default async function Blog({ params }: BlogProps) {
       />
       <BlogContent content={data.content} />
       <BlogInteraction id={data.id} />
+      <BlogCommentBox />
     </Fragment>
   );
 }
