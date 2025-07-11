@@ -37,7 +37,7 @@ export default async function Blog({ params }: BlogProps) {
       />
       <BlogContent content={data.content} />
       <BlogInteraction id={data.id} />
-      <BlogCommentBox />
+      <BlogCommentBox id={data.id} />
     </Fragment>
   );
 }
