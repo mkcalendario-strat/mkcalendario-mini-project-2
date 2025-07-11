@@ -1,6 +1,8 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { editComment, fetchComment } from "@/actions/interactions";
+import { showErrorToast, showSuccessToast } from "@/utils/toast";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import AvatarProvider from "../providers/AvatarProvider";
 import Button from "./Button";
 import Input from "./Input";
@@ -28,10 +30,7 @@ export default function Comment({
       </div>
 
       <div className="absolute top-0 right-0 m-[20px] flex flex-wrap gap-1">
-        <EditCommentButton
-          id={id}
-          text={text}
-        />
+        <EditCommentButton id={id} />
         <TrashCommentButton id={id} />
       </div>
 
@@ -83,15 +82,28 @@ function TrashCommentButton({ id }: TrashCommentButtonProps) {
   );
 }
 
-type EditCommentButtonProps = Pick<UserComment, "id" | "text">;
+type EditCommentButtonProps = Pick<UserComment, "id">;
 
-function EditCommentButton({ id, text }: EditCommentButtonProps) {
-  void id;
+function EditCommentButton({ id }: EditCommentButtonProps) {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [formData, setFormData] = useState({
-    key: "",
-    editedComment: text
-  });
+
+  const initialFormData = { key: "", editedComment: "" };
+  const [formData, setFormData] = useState(initialFormData);
+
+  const handleEditComment = async () => {
+    const { key, editedComment } = formData;
+    const { success, message } = await editComment({
+      id,
+      key,
+      text: editedComment
+    });
+
+    if (!success) return showErrorToast(message);
+
+    toggleModal();
+    setFormData(initialFormData);
+    return showSuccessToast(message);
+  };
 
   const handleInputChange = (
     evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -100,7 +112,19 @@ function EditCommentButton({ id, text }: EditCommentButtonProps) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const fetchCommentData = useCallback(async () => {
+    const { success, message, data } = await fetchComment(id);
+
+    if (!success || !data) return showErrorToast(message);
+
+    setFormData((prev) => ({ ...prev, editedComment: data.text }));
+  }, [id]);
+
   const toggleModal = () => setIsModalVisible((prev) => !prev);
+
+  useEffect(() => {
+    if (isModalVisible) fetchCommentData();
+  }, [isModalVisible, fetchCommentData]);
 
   return (
     <Fragment>
@@ -130,7 +154,9 @@ function EditCommentButton({ id, text }: EditCommentButtonProps) {
           value={formData.key}
           onChange={handleInputChange}
         />
-        <Button className="self-baseline bg-green-500 text-neutral-100">
+        <Button
+          onClick={handleEditComment}
+          className="self-baseline bg-green-500 text-neutral-100">
           <i className="far fa-edit" />
           Edit Comment
         </Button>
