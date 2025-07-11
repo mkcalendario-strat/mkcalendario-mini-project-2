@@ -1,6 +1,8 @@
 "use client";
 
+import { addComment } from "@/actions/interactions";
 import useUserData from "@/hooks/useUserData";
+import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { Fragment, useState } from "react";
 import AvatarProvider from "../providers/AvatarProvider";
 import Button from "./Button";
@@ -31,6 +33,7 @@ export default function CommentButton({ id, className }: CommentButtonProps) {
       </Button>
 
       <AddCommentModal
+        id={id}
         visible={isVisible}
         toggle={toggleModal}
       />
@@ -41,21 +44,34 @@ export default function CommentButton({ id, className }: CommentButtonProps) {
 interface AddCommentModalProps {
   visible: boolean;
   toggle: () => void;
+  id: Blog["id"];
 }
 
-function AddCommentModal({ visible, toggle }: AddCommentModalProps) {
+function AddCommentModal({ id, visible, toggle }: AddCommentModalProps) {
   const { userName, userAvatarSeed } = useUserData();
-
-  const [formData, setFormData] = useState({
-    comment: "",
-    desiredKey: ""
-  });
+  const [formData, setFormData] = useState({ comment: "", desiredKey: "" });
 
   const handleInputChange = (
     evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = evt.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmitCommentClick = async () => {
+    const { success, message } = await addComment({
+      blogId: id,
+      text: formData.comment,
+      desiredKey: formData.desiredKey,
+      userName,
+      userAvatarSeed
+    });
+
+    if (!success) return showErrorToast(message);
+
+    toggle();
+    setFormData({ comment: "", desiredKey: "" });
+    return showSuccessToast(message);
   };
 
   return (
@@ -87,7 +103,9 @@ function AddCommentModal({ visible, toggle }: AddCommentModalProps) {
         tip="Keep this key to edit or delete comment."
         type="password"
       />
-      <Button className="self-baseline bg-neutral-900 text-neutral-100">
+      <Button
+        onClick={handleSubmitCommentClick}
+        className="self-baseline bg-neutral-900 text-neutral-100">
         Submit Comment
       </Button>
     </Modal>
