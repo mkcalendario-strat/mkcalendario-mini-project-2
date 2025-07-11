@@ -1,6 +1,7 @@
 "use server";
 
 import { uploadBlogImage } from "@/utils/files";
+import { revalidatePath } from "next/cache";
 import { v4 as uuidv4 } from "uuid";
 import { blogs } from "../../drizzle/schema";
 import { db } from "./db";
@@ -45,6 +46,8 @@ export async function createBlog(formData: FormData) {
         image: newImageName
       })
       .returning({ insertedId: blogs.id });
+
+    revalidatePath("/blogs");
 
     const blogId = result[0].insertedId;
     const message = `Success creating blog. Blog ID is ${blogId}.`;
