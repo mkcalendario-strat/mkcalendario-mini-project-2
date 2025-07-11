@@ -22,7 +22,7 @@ export default function BlogDetails({
           fill
           alt={title}
           className="object-cover"
-          src={`/api/image/${image}`}
+          src={`${process.env.NEXT_PUBLIC_BLOB_URL}/${image}`}
         />
       </div>
       <p className="text-xs text-neutral-500">Blog ID: {id}</p>
