@@ -5,6 +5,7 @@ import { desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { comments } from "../../drizzle/schema";
 import { db } from "./db";
+import { isCommentKeyCorrect } from "./interactions/utils";
 
 interface AddCommentProps
   extends Pick<UserComment, "userName" | "userAvatarSeed" | "text"> {
@@ -39,7 +40,7 @@ export async function fetchComments(blogId: Blog["id"]) {
   try {
     const result = await db
       .select({
-        id: comments.blogId,
+        id: comments.id,
         text: comments.text,
         timestamp: comments.timestamp,
         userName: comments.userName,
@@ -64,5 +65,49 @@ export async function fetchComments(blogId: Blog["id"]) {
     };
   } catch {
     return { success: false, message: "Eror. Cannot fetch comments." };
+  }
+}
+
+export async function fetchComment(commentId: UserComment["id"]) {
+  try {
+    const result = await db
+      .select({ id: comments.id, text: comments.text })
+      .from(comments)
+      .orderBy(desc(comments.timestamp))
+      .where(eq(comments.id, parseInt(commentId)));
+
+    const formatted = result.map((data) => {
+      return { ...data, id: data.id.toString() };
+    }) as CommentsData[];
+
+    return {
+      data: formatted[0],
+      success: true,
+      message: "Success. Comment fetched successfully."
+    };
+  } catch {
+    return { success: false, message: "Eror. Cannot fetch comment." };
+  }
+}
+
+type EditCommentProps = Pick<UserComment, "id" | "key" | "text">;
+
+export async function editComment({ id, key, text }: EditCommentProps) {
+  try {
+    const isKeyCorrect = await isCommentKeyCorrect(id, key);
+
+    if (!isKeyCorrect) {
+      return { success: false, message: "Error. Comment key is incorrect." };
+    }
+
+    await db
+      .update(comments)
+      .set({ text })
+      .where(eq(comments.id, parseInt(id)));
+
+    revalidatePath("/");
+    return { success: true, message: "Comment edited successfully." };
+  } catch {
+    return { success: false, message: "Error. Cannot edit comment." };
   }
 }
