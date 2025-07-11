@@ -1,11 +1,16 @@
+"use client";
+
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import AvatarProvider from "@/components/providers/AvatarProvider";
 import CommentButton from "@/components/ui/CommentButton";
 import HeartButton from "@/components/ui/HeartButton";
+import useUserData from "@/hooks/useUserData";
 
 type BlogInteractionProps = Pick<Blog, "id">;
 
 export default function BlogInteraction({ id }: BlogInteractionProps) {
+  const { userName, userAvatarSeed } = useUserData();
+
   return (
     <DashboardContent
       tight
@@ -13,12 +18,12 @@ export default function BlogInteraction({ id }: BlogInteractionProps) {
       <div className="flex flex-col justify-between gap-3 bg-white p-5 shadow-xl shadow-neutral-300 md:flex-row">
         <div className="flex gap-3">
           <AvatarProvider
-            seed="19"
+            seed={userAvatarSeed}
             size="w-[50px]"
           />
           <div className="">
             <p>Interacting as</p>
-            <p className="font-medium">Mark Kenneth</p>
+            <p className="font-medium">{userName}</p>
           </div>
         </div>
 
