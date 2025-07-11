@@ -1,5 +1,6 @@
 "use server";
 
+import { formatTime } from "@/utils/time";
 import { desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { comments } from "../../drizzle/schema";
@@ -52,7 +53,7 @@ export async function fetchComments(blogId: Blog["id"]) {
       return {
         ...data,
         id: data.id.toString(),
-        timestamp: data.timestamp!.toString() as string
+        timestamp: formatTime(data.timestamp as string)
       };
     }) as CommentsData[];
 

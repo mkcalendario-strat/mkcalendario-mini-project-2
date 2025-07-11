@@ -1,5 +1,6 @@
 "use server";
 
+import { formatTime } from "@/utils/time";
 import { eq } from "drizzle-orm";
 import { blogs } from "../../drizzle/schema";
 import { db } from "./db";
@@ -22,7 +23,7 @@ export default async function fetchBlog(id: string): Promise<FetchBlogReturn> {
 
     const formatted = result.map((blog) => ({
       ...blog,
-      timestamp: new Date(blog.timestamp).toLocaleString("en-US")
+      timestamp: formatTime(blog.timestamp)
     }));
 
     return {
