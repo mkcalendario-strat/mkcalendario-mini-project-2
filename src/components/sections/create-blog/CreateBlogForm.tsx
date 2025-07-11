@@ -1,18 +1,18 @@
 "use client";
 
-import Cookies from "js-cookie";
-
 import { createBlog } from "@/actions/create-blog";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import WYSIWYGEditor from "@/components/ui/WYSIWYGEditor";
+import useUserData from "@/hooks/useUserData";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { redirect, RedirectType } from "next/navigation";
 import { useRef, useState } from "react";
 
 export default function CreateBlogForm() {
   const formRef = useRef<HTMLFormElement | null>(null);
+  const { userName, userAvatarSeed } = useUserData();
 
   const [blogData, setBlogData] = useState({
     title: "",
@@ -35,9 +35,6 @@ export default function CreateBlogForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(formRef.current as HTMLFormElement);
-
-    const userName = Cookies.get("user_name") as string;
-    const userAvatarSeed = Cookies.get("user_avatar_seed") as string;
 
     formData.append("user-name", userName);
     formData.append("user-avatar-seed", userAvatarSeed);
