@@ -2,6 +2,7 @@
 
 import { uploadBlogImage } from "@/utils/files";
 import { and, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { v4 as uuid } from "uuid";
 import { blogs } from "../../drizzle/schema";
 import { db } from "./db";
@@ -85,6 +86,7 @@ export async function editBlog(
       return { success: false, message: "No blog has been edited." };
     }
 
+    revalidatePath("/blogs");
     const id = result[0].editedId;
     return { success: true, message: "Success editing blog.", blogId: id };
   } catch {
