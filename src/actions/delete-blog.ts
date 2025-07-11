@@ -1,6 +1,7 @@
 "use server";
 
 import { and, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { blogs } from "../../drizzle/schema";
 import { db } from "./db";
 
@@ -21,6 +22,8 @@ export default async function deleteBlog(id: string, key: string) {
         message: "No blog is associated with this ID and key."
       };
     }
+
+    revalidatePath("/blogs");
 
     const deletedTitle = deleted[0].title;
     return {
