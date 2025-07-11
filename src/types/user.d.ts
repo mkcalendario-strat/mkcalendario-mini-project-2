@@ -1,4 +1,4 @@
 interface User {
-  name: string;
-  avatarSeed: string;
+  userName: string;
+  userAvatarSeed: string;
 }
