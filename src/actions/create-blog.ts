@@ -13,7 +13,7 @@ export async function createBlog(formData: FormData) {
   const userAvatarSeed = formData.get("user-avatar-seed")?.toString().trim();
   const image = formData.get("image") as File | null;
   const key = formData.get("key")?.toString().trim();
-  const newImageName = uuidv4();
+  const newImageName = `${uuidv4()}.jpg`;
 
   if (
     !title ||
@@ -32,7 +32,7 @@ export async function createBlog(formData: FormData) {
   }
 
   try {
-    const url = await uploadBlogImage(image, newImageName);
+    await uploadBlogImage(image, newImageName);
     const result = await db
       .insert(blogs)
       .values({
@@ -42,7 +42,7 @@ export async function createBlog(formData: FormData) {
         content,
         userName,
         userAvatarSeed,
-        image: url
+        image: newImageName
       })
       .returning({ insertedId: blogs.id });
 

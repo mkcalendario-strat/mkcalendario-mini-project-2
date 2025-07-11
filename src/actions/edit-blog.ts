@@ -66,9 +66,9 @@ export async function editBlog(
     };
 
     if (image !== null && image.size !== 0) {
-      const newImageName = uuid();
-      const url = await uploadBlogImage(image, newImageName);
-      updateSet.image = url;
+      const newImageName = `${uuid()}.jpg`;
+      await uploadBlogImage(image, newImageName);
+      updateSet.image = newImageName;
     }
 
     if (newKey) {
