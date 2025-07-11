@@ -4,3 +4,8 @@ interface UserComment extends User {
   text: string;
   timestamp: string;
 }
+
+type CommentsData = Pick<
+  UserComment,
+  "id" | "text" | "timestamp" | "userAvatarSeed" | "userName"
+>;

@@ -13,7 +13,7 @@ export default function Comment({
   userAvatarSeed,
   timestamp,
   text
-}: UserComment) {
+}: CommentsData) {
   return (
     <div className="relative flex flex-col gap-3 bg-white p-[20px]">
       <div className="flex flex-wrap gap-2">
