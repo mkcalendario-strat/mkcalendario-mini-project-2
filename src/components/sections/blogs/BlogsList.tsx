@@ -6,7 +6,6 @@ import { redirect, RedirectType } from "next/navigation";
 
 export default async function BlogsList() {
   const { success, message, blogs } = await fetchBlogs();
-  console.log(blogs);
 
   if (!success) {
     showErrorToast(message);
@@ -14,7 +13,7 @@ export default async function BlogsList() {
   }
 
   if (!blogs) {
-    redirect("/blogs", RedirectType.push);
+    return redirect("/blogs", RedirectType.push);
   }
 
   return (
