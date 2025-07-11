@@ -1,7 +1,7 @@
 "use server";
 
 import { formatTime } from "@/utils/time";
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { comments } from "../../drizzle/schema";
 import { db } from "./db";
@@ -105,9 +105,31 @@ export async function editComment({ id, key, text }: EditCommentProps) {
       .set({ text })
       .where(eq(comments.id, parseInt(id)));
 
-    revalidatePath("/");
+    revalidatePath("/blogs/[id]");
     return { success: true, message: "Comment edited successfully." };
   } catch {
     return { success: false, message: "Error. Cannot edit comment." };
+  }
+}
+
+export async function deleteComment(
+  id: UserComment["key"],
+  key: UserComment["key"]
+) {
+  try {
+    const isKeyCorrect = await isCommentKeyCorrect(id, key);
+
+    if (!isKeyCorrect) {
+      return { success: false, message: "Invalid key. Deletion aborted." };
+    }
+
+    await db
+      .delete(comments)
+      .where(and(eq(comments.id, parseInt(id)), eq(comments.key, key)));
+
+    revalidatePath("/blogs/[id]");
+    return { success: true, message: "Comment deleted sucessfully." };
+  } catch {
+    return { success: false, message: "Error. Cannot delete key." };
   }
 }

@@ -1,6 +1,10 @@
 "use client";
 
-import { editComment, fetchComment } from "@/actions/interactions";
+import {
+  deleteComment,
+  editComment,
+  fetchComment
+} from "@/actions/interactions";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import AvatarProvider from "../providers/AvatarProvider";
@@ -42,12 +46,19 @@ export default function Comment({
 type TrashCommentButtonProps = Pick<UserComment, "id">;
 
 function TrashCommentButton({ id }: TrashCommentButtonProps) {
-  void id;
   const [key, setKey] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleKeyChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setKey(evt.target.value);
+  };
+
+  const handleDeleteComment = async () => {
+    const { success, message } = await deleteComment(id, key);
+    if (!success) return showErrorToast(message);
+    showSuccessToast(message);
+    toggleModal();
+    setKey("");
   };
 
   const toggleModal = () => setIsModalVisible((prev) => !prev);
@@ -73,7 +84,9 @@ function TrashCommentButton({ id }: TrashCommentButtonProps) {
           onChange={handleKeyChange}
           placeholder="Enter Comment Key"
         />
-        <Button className="self-baseline bg-red-500 text-neutral-100">
+        <Button
+          onClick={handleDeleteComment}
+          className="self-baseline bg-red-500 text-neutral-100">
           <i className="far fa-trash" />
           Delete Comment
         </Button>
