@@ -32,8 +32,7 @@ export default function CreateBlogForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(formRef.current as HTMLFormElement);
-    const { success, message, blogId } = await createBlog(formData);
+    const { success, message, blogId } = await createBlog(blogData);
 
     if (!success) return showErrorToast(message);
 

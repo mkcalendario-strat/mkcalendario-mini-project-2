@@ -12,7 +12,7 @@ export default async function EditBlog({ params }: EditBlogProps) {
     <Fragment>
       <EditBlogForm
         id={parseInt(id)}
-        key={key}
+        originalKey={key}
       />
     </Fragment>
   );

@@ -9,12 +9,18 @@ import { v4 as uuidv4 } from "uuid";
 import { db } from "../db";
 import { getIdentity } from "../utils/identity";
 
-export async function createBlog(formData: FormData) {
-  const title = formData.get("title")?.toString().trim();
-  const description = formData.get("description")?.toString().trim();
-  const content = formData.get("content")?.toString().trim();
-  const image = formData.get("image") as File | null;
-  const key = formData.get("key")?.toString().trim();
+interface CreateBlog
+  extends Pick<Blog, "title" | "description" | "content" | "key"> {
+  image: File | null;
+}
+
+export async function createBlog({
+  key,
+  image,
+  title,
+  content,
+  description
+}: CreateBlog) {
   const newImageName = `${uuidv4()}.jpg`;
 
   const { userName, userAvatarSeed } = await getIdentity();
@@ -52,7 +58,9 @@ export async function createBlog(formData: FormData) {
   }
 }
 
-export async function deleteBlog(id: Blog["id"], key: Blog["key"]) {
+type DeleteBlog = Pick<Blog, "id" | "key">;
+
+export async function deleteBlog({ id, key }: DeleteBlog) {
   if (!id || !key) {
     return { success: false, message: "All fields are required." };
   }
@@ -82,8 +90,10 @@ export async function deleteBlog(id: Blog["id"], key: Blog["key"]) {
   }
 }
 
-export async function checkBlogKey(blogId: Blog["id"], key: Blog["key"]) {
-  if (!blogId || !key) {
+type CheckBlogKey = Pick<Blog, "id" | "key">;
+
+export async function checkBlogKey({ id, key }: CheckBlogKey) {
+  if (!id || !key) {
     return { success: false, message: "All fields are required." };
   }
 
@@ -91,7 +101,7 @@ export async function checkBlogKey(blogId: Blog["id"], key: Blog["key"]) {
     const result = await db
       .select({ id: blogs.id })
       .from(blogs)
-      .where(and(eq(blogs.id, blogId), eq(blogs.key, key)));
+      .where(and(eq(blogs.id, id), eq(blogs.key, key)));
 
     if (result.length === 0) {
       return {
@@ -106,17 +116,21 @@ export async function checkBlogKey(blogId: Blog["id"], key: Blog["key"]) {
   }
 }
 
-export async function editBlog(
-  blogId: Blog["id"],
-  key: Blog["key"],
-  formData: FormData
-) {
-  const title = formData.get("title")?.toString().trim();
-  const description = formData.get("description")?.toString().trim();
-  const content = formData.get("content")?.toString().trim();
-  const image = formData.get("image") as File | null;
-  const newKey = formData.get("key")?.toString().trim();
+interface EditBlog
+  extends Pick<Blog, "id" | "key" | "title" | "description" | "content"> {
+  image: File | null;
+  newKey: Blog["key"];
+}
 
+export async function editBlog({
+  id,
+  key,
+  title,
+  image,
+  newKey,
+  content,
+  description
+}: EditBlog) {
   if (!title || !description || !content) {
     return {
       success: false,
@@ -152,7 +166,7 @@ export async function editBlog(
     const result = await db
       .update(blogs)
       .set(updateSet)
-      .where(and(eq(blogs.id, blogId), eq(blogs.key, key)))
+      .where(and(eq(blogs.id, id), eq(blogs.key, key)))
       .returning({ editedId: blogs.id });
 
     if (result.length === 0) {
@@ -160,8 +174,12 @@ export async function editBlog(
     }
 
     revalidatePath("/blogs");
-    const id = result[0].editedId;
-    return { success: true, message: "Success editing blog.", blogId: id };
+    const editedId = result[0].editedId;
+    return {
+      success: true,
+      message: "Success editing blog.",
+      blogId: editedId
+    };
   } catch {
     return { success: false, message: "Error. Cannot edit blog." };
   }

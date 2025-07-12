@@ -8,21 +8,24 @@ import WYSIWYGEditor from "@/components/ui/WYSIWYGEditor";
 import { Blog } from "@/types/blogs";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { redirect, RedirectType } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-type EditBlogFormProps = Pick<Blog, "id" | "key">;
+interface EditBlogFormProps extends Pick<Blog, "id"> {
+  originalKey: Blog["key"];
+}
 
-export default function EditBlogForm({ id, key }: EditBlogFormProps) {
-  const formRef = useRef<HTMLFormElement | null>(null);
+export default function EditBlogForm({ id, originalKey }: EditBlogFormProps) {
   const [blogData, setBlogData] = useState({
     title: "",
-    description: "",
+    newKey: "",
     content: "",
-    key: "",
+    description: "",
     image: null as File | null
   });
 
-  const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = evt.target;
     setBlogData((prev) => ({ ...prev, [name]: value }));
   };
@@ -40,23 +43,31 @@ export default function EditBlogForm({ id, key }: EditBlogFormProps) {
     }
 
     setBlogData({
+      newKey: "",
+      image: null,
       title: data.title,
-      description: data.description,
       content: data.content,
-      key: "",
-      image: null as File | null
+      description: data.description
     });
   }, [id]);
 
   const handleEdit = async (evt: React.FormEvent) => {
     evt.preventDefault();
 
-    const formData = new FormData(formRef.current as HTMLFormElement);
-    const { success, message, blogId } = await editBlog(id, key, formData);
+    const { title, image, newKey, content, description } = blogData;
+    const { success, message, blogId } = await editBlog({
+      id,
+      key: originalKey,
+      title,
+      image,
+      newKey,
+      content,
+      description
+    });
 
     if (!success) {
       showErrorToast(message);
-      return null;
+      return;
     }
 
     showSuccessToast(message);
@@ -73,7 +84,6 @@ export default function EditBlogForm({ id, key }: EditBlogFormProps) {
       description="You can now edit this blog."
       className="bg-white p-10">
       <form
-        ref={formRef}
         onSubmit={handleEdit}
         className="flex flex-col gap-3">
         <Input
@@ -107,8 +117,8 @@ export default function EditBlogForm({ id, key }: EditBlogFormProps) {
           onChange={handleImageChange}
         />
         <Input
-          id="key"
-          name="key"
+          id="new-key"
+          name="newKey"
           type="password"
           tip="Skip this field to retain the current key."
           placeholder="Control Key"
