@@ -62,9 +62,7 @@ function AddCommentModal({ id, visible, toggle }: AddCommentModalProps) {
     const { success, message } = await addComment({
       blogId: id,
       text: formData.comment,
-      desiredKey: formData.desiredKey,
-      userName,
-      userAvatarSeed
+      desiredKey: formData.desiredKey
     });
 
     if (!success) return showErrorToast(message);

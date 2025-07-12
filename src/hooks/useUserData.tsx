@@ -1,19 +1,22 @@
 "use client";
 
-import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import { getIdentity } from "@/actions/utils/identity";
+import { useCallback, useEffect, useState } from "react";
 
 export default function useUserData() {
-  const [userName, setUserName] = useState("");
-  const [userAvatarSeed, setUserAvatarSeed] = useState("");
+  const [identity, setIdentity] = useState<Identity>({
+    userName: "",
+    userAvatarSeed: ""
+  });
 
-  useEffect(() => {
-    const name = Cookies.get("user_name");
-    const seed = Cookies.get("user_avatar_seed");
-
-    setUserName(name ?? "Anonymous");
-    setUserAvatarSeed(seed ?? "Anonymous");
+  const fetchUserData = useCallback(async () => {
+    const identity = await getIdentity();
+    setIdentity(identity);
   }, []);
 
-  return { userName, userAvatarSeed };
+  useEffect(() => {
+    fetchUserData();
+  }, [fetchUserData]);
+
+  return identity;
 }

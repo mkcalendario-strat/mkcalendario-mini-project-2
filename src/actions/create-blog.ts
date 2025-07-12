@@ -5,26 +5,19 @@ import { revalidatePath } from "next/cache";
 import { v4 as uuidv4 } from "uuid";
 import { blogs } from "../../drizzle/schema";
 import { db } from "./db";
+import { getIdentity } from "./utils/identity";
 
 export async function createBlog(formData: FormData) {
   const title = formData.get("title")?.toString().trim();
   const description = formData.get("description")?.toString().trim();
   const content = formData.get("content")?.toString().trim();
-  const userName = formData.get("user-name")?.toString().trim();
-  const userAvatarSeed = formData.get("user-avatar-seed")?.toString().trim();
   const image = formData.get("image") as File | null;
   const key = formData.get("key")?.toString().trim();
   const newImageName = `${uuidv4()}.jpg`;
 
-  if (
-    !title ||
-    !description ||
-    !content ||
-    !userName ||
-    !key ||
-    !userAvatarSeed ||
-    !image
-  ) {
+  const { userName, userAvatarSeed } = await getIdentity();
+
+  if (!title || !description || !content || !key || !image) {
     return { success: false, message: "All fields are required." };
   }
 

@@ -1,10 +1,13 @@
 "use client";
 
+import { getIdentity } from "@/actions/utils/identity";
 import useIsOnMobile from "@/hooks/useIsOnMobile";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import ChangeIdentityModal from "../misc/ChangeIdentityButton";
+import Identity from "../providers/Identity";
 
 // Dashboard
 
@@ -78,10 +81,26 @@ const LINKS = [
 
 function Sidebar({ isOpen }: SidebarProps) {
   const pathname = usePathname();
+  const [identity, setIdentity] = useState<Identity>({
+    userName: "",
+    userAvatarSeed: ""
+  });
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const toggleModal = () => setIsModalVisible((prev) => !prev);
 
   const baseClasses = "flex font-medium items-center gap-3 px-5 py-3";
   const activeClasses = "text-neutral-100 bg-neutral-900";
   const inactiveClasses = "text-neutral-900 hover:bg-neutral-100";
+
+  const fetchIdentity = useCallback(async () => {
+    const identity = await getIdentity();
+    setIdentity(identity);
+  }, []);
+
+  useEffect(() => {
+    fetchIdentity();
+  }, [fetchIdentity]);
 
   if (!isOpen) return null;
 
@@ -101,6 +120,26 @@ function Sidebar({ isOpen }: SidebarProps) {
             </Link>
           );
         })}
+
+        <div className="flex justify-between gap-2 bg-neutral-100 p-[10px]">
+          <Identity
+            reverse
+            imageSize="w-[35px]"
+            description="Identified as"
+            userName={identity.userName}
+            userAvatarSeed={identity.userAvatarSeed}
+          />
+          <button
+            onClick={toggleModal}
+            className="cursor-pointer">
+            <i className="fas fa-grid-2 text-neutral-900" />
+          </button>
+          <ChangeIdentityModal
+            toggle={toggleModal}
+            visible={isModalVisible}
+            refetch={fetchIdentity}
+          />
+        </div>
       </div>
     </aside>
   );

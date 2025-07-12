@@ -6,20 +6,20 @@ import { revalidatePath } from "next/cache";
 import { comments } from "../../drizzle/schema";
 import { db } from "./db";
 import { isCommentKeyCorrect } from "./interactions/utils";
+import { getIdentity } from "./utils/identity";
 
-interface AddCommentProps
-  extends Pick<UserComment, "userName" | "userAvatarSeed" | "text"> {
+interface AddCommentProps extends Pick<UserComment, "text"> {
   blogId: Blog["id"];
   desiredKey: UserComment["key"];
 }
 
 export async function addComment({
-  userName,
-  userAvatarSeed,
   text,
   desiredKey,
   blogId
 }: AddCommentProps) {
+  const { userName, userAvatarSeed } = await getIdentity();
+
   try {
     await db.insert(comments).values({
       text,
