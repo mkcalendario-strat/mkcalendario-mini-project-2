@@ -1,8 +1,8 @@
 "use client";
 
-import AvatarProvider from "@/components/providers/AvatarProvider";
 import Image from "next/image";
 import Link from "next/link";
+import Identity from "../providers/Identity";
 
 interface BlogCardProps extends Omit<Blog, "key" | "comments" | "hearts"> {
   className?: string;
@@ -37,10 +37,11 @@ export default function BlogCard({
           description={description}
         />
       </div>
-      <UserDetails
-        name={userName}
-        avatarSeed={userAvatarSeed}
-        timestamp={timestamp}
+      <Identity
+        imageSize="w-[40px]"
+        description={timestamp}
+        userName={userName}
+        userAvatarSeed={userAvatarSeed}
       />
     </Link>
   );
@@ -83,19 +84,4 @@ interface UserDetailsProps {
   name: string;
   avatarSeed: string;
   timestamp: string;
-}
-
-function UserDetails({ name, avatarSeed, timestamp }: UserDetailsProps) {
-  return (
-    <div className="flex flex-wrap items-center gap-[10px]">
-      <AvatarProvider
-        size="w-[40px]"
-        seed={avatarSeed}
-      />
-      <div className="text-neutral-700">
-        <p className="leading-[20px] font-medium">{name}</p>
-        <p className="leading-[20px]">{timestamp}</p>
-      </div>
-    </div>
-  );
 }

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import ChangeIdentityModal from "../misc/ChangeIdentityButton";
-import AvatarProvider from "../providers/AvatarProvider";
+import Identity from "../providers/Identity";
 
 // Dashboard
 
@@ -122,18 +122,13 @@ function Sidebar({ isOpen }: SidebarProps) {
         })}
 
         <div className="flex justify-between gap-2 bg-neutral-100 p-[10px]">
-          <div className="flex flex-wrap gap-2">
-            <div>
-              <AvatarProvider
-                size="w-[40px]"
-                seed={identity.userAvatarSeed}
-              />
-            </div>
-            <div className="text-sm leading-[20px]">
-              <p className="text-xs">Identified as</p>
-              <p className="font-medium">{identity.userName}</p>
-            </div>
-          </div>
+          <Identity
+            reverse
+            imageSize="w-[35px]"
+            description="Identified as"
+            userName={identity.userName}
+            userAvatarSeed={identity.userAvatarSeed}
+          />
           <button
             onClick={toggleModal}
             className="cursor-pointer">

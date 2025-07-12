@@ -1,5 +1,3 @@
-"use server";
-
 import AvatarProvider from "./AvatarProvider";
 
 interface IdentityProps extends Identity {
@@ -8,7 +6,7 @@ interface IdentityProps extends Identity {
   description: string;
 }
 
-export default async function Identity({
+export default function Identity({
   reverse,
   imageSize,
   description,

@@ -1,5 +1,5 @@
 import { DashboardContent } from "@/components/layouts/DashboardContent";
-import AvatarProvider from "@/components/providers/AvatarProvider";
+import Identity from "@/components/providers/Identity";
 import Image from "next/image";
 
 type BlogDetails = Omit<Blog, "key" | "hearts" | "comments">;
@@ -32,15 +32,12 @@ export default function BlogDetails({
       <p className="md:text-xl">{description}</p>
 
       <div className="flex flex-wrap items-center gap-3">
-        <AvatarProvider
-          size="w-[40px]"
-          seed={userAvatarSeed}
+        <Identity
+          imageSize="w-[50px]"
+          userName={userName}
+          userAvatarSeed={userAvatarSeed}
+          description={timestamp}
         />
-
-        <div className="text-neutral-700">
-          <p className="leading-[15px] font-medium">{userName}</p>
-          <p className="text-xs">{timestamp}</p>
-        </div>
       </div>
     </DashboardContent>
   );

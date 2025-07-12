@@ -1,6 +1,6 @@
 import { getIdentity } from "@/actions/utils/identity";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
-import AvatarProvider from "@/components/providers/AvatarProvider";
+import Identity from "@/components/providers/Identity";
 import CommentButton from "@/components/ui/CommentButton";
 import HeartButton from "@/components/ui/HeartButton";
 
@@ -8,22 +8,18 @@ type BlogInteractionProps = Pick<Blog, "id">;
 
 export default async function BlogInteraction({ id }: BlogInteractionProps) {
   const { userName, userAvatarSeed } = await getIdentity();
-
   return (
     <DashboardContent
       tight
       title="Interact With This Blog">
       <div className="flex flex-col justify-between gap-3 bg-white p-5 shadow-xl shadow-neutral-300 md:flex-row">
-        <div className="flex gap-3">
-          <AvatarProvider
-            seed={userAvatarSeed}
-            size="w-[50px]"
-          />
-          <div className="">
-            <p>Interacting as</p>
-            <p className="font-medium">{userName}</p>
-          </div>
-        </div>
+        <Identity
+          reverse
+          userName={userName}
+          userAvatarSeed={userAvatarSeed}
+          imageSize="w-[50px]"
+          description="Interacting as"
+        />
 
         <div className="flex w-full gap-1 md:w-auto">
           <HeartButton
