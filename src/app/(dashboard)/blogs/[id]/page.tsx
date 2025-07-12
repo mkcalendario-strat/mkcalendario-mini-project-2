@@ -7,6 +7,20 @@ import { showErrorToast } from "@/utils/toast";
 import { redirect, RedirectType } from "next/navigation";
 import { Fragment } from "react";
 
+type GenerateMetadataProps = {
+  params: Promise<{ id: string }>;
+};
+
+export async function generateMetadata({ params }: GenerateMetadataProps) {
+  const { id } = await params;
+  const { data } = await fetchBlog(id);
+
+  return {
+    title: data?.title,
+    description: data?.description
+  };
+}
+
 interface BlogProps {
   params: Promise<{ id: string }>;
 }
