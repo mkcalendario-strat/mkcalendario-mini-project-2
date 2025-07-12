@@ -1,7 +1,6 @@
 "use client";
 
-import deleteBlog from "@/actions/delete-blog";
-import checkBlogKey from "@/actions/edit-blog";
+import { checkBlogKey, deleteBlog } from "@/actions/blogs/blogs";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";

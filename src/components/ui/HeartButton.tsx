@@ -1,6 +1,6 @@
 "use client";
 
-import getHearts from "@/actions/get-hearts";
+import { getHearts } from "@/actions/blogs/blogs";
 import sendHeart from "@/actions/interactions/interactions";
 import { Blog } from "@/types/blogs";
 import { showErrorToast } from "@/utils/toast";

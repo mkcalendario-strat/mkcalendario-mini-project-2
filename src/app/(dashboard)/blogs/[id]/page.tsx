@@ -1,4 +1,4 @@
-import fetchBlog from "@/actions/fetch-blog";
+import { fetchBlog } from "@/actions/blogs/blogs";
 import BlogCommentBox from "@/components/sections/blog/BlogCommentBox";
 import BlogContent from "@/components/sections/blog/BlogContent";
 import BlogDetails from "@/components/sections/blog/BlogDetails";

@@ -3,6 +3,7 @@
 import { initializeIdentity } from "@/actions/identity/identity";
 import { getIdentity } from "@/actions/utils/identity";
 import useIsOnMobile from "@/hooks/useIsOnMobile";
+import { Identity as IdentityType } from "@/types/identity";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -94,7 +95,7 @@ const LINKS = [
 
 function Sidebar({ isOpen }: SidebarProps) {
   const pathname = usePathname();
-  const [identity, setIdentity] = useState<Identity>({
+  const [identity, setIdentity] = useState<IdentityType>({
     userName: "",
     userAvatarSeed: ""
   });
