@@ -5,6 +5,7 @@ import {
   editComment,
   fetchComment
 } from "@/actions/interactions";
+import { UserComment } from "@/types/interactions";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import AvatarProvider from "../providers/AvatarProvider";
@@ -13,13 +14,18 @@ import Input from "./Input";
 import Modal from "./Modal";
 import Textarea from "./Textarea";
 
+export type CommentsProps = Pick<
+  UserComment,
+  "id" | "text" | "timestamp" | "userAvatarSeed" | "userName"
+>;
+
 export default function Comment({
   id,
   userName,
   userAvatarSeed,
   timestamp,
   text
-}: CommentsData) {
+}: CommentsProps) {
   return (
     <div className="relative flex flex-col gap-3 bg-white p-[20px]">
       <div className="flex flex-wrap gap-2">

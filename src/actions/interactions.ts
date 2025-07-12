@@ -1,5 +1,7 @@
 "use server";
 
+import { Blog } from "@/types/blogs";
+import { CommentsData, UserComment } from "@/types/interactions";
 import { formatTime } from "@/utils/time";
 import { and, desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -23,7 +25,7 @@ export async function addComment({
   try {
     await db.insert(comments).values({
       text,
-      blogId: parseInt(blogId),
+      blogId: blogId,
       key: desiredKey,
       userName,
       userAvatarSeed
@@ -48,7 +50,7 @@ export async function fetchComments(blogId: Blog["id"]) {
       })
       .from(comments)
       .orderBy(desc(comments.timestamp))
-      .where(eq(comments.blogId, parseInt(blogId)));
+      .where(eq(comments.blogId, blogId));
 
     const formatted = result.map((data) => {
       return {

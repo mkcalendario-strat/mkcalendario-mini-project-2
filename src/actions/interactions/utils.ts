@@ -1,3 +1,4 @@
+import { UserComment } from "@/types/interactions";
 import { and, eq } from "drizzle-orm";
 import { comments } from "../../../drizzle/schema";
 import { db } from "../db";
