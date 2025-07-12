@@ -17,7 +17,7 @@ export default function ManageBlogForm() {
 
   const handleDelete = async () => {
     const { id, key } = formData;
-    const { success, message } = await deleteBlog(id, key);
+    const { success, message } = await deleteBlog(parseInt(id), key);
 
     if (!success) {
       showErrorToast(message);
@@ -32,7 +32,7 @@ export default function ManageBlogForm() {
     const { id, key } = formData;
 
     // Challenge control key
-    const { success, message } = await checkBlogKey(id, key);
+    const { success, message } = await checkBlogKey(parseInt(id), key);
 
     if (!success) {
       return showErrorToast(message);

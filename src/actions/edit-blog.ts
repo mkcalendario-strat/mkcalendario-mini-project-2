@@ -8,7 +8,10 @@ import { v4 as uuid } from "uuid";
 import { blogs } from "../../drizzle/schema";
 import { db } from "./db";
 
-export default async function checkBlogKey(blogId: string, key: string) {
+export default async function checkBlogKey(
+  blogId: Blog["id"],
+  key: Blog["key"]
+) {
   if (!blogId || !key) {
     return { success: false, message: "All fields are required." };
   }
@@ -17,7 +20,7 @@ export default async function checkBlogKey(blogId: string, key: string) {
     const result = await db
       .select({ id: blogs.id })
       .from(blogs)
-      .where(and(eq(blogs.id, parseInt(blogId)), eq(blogs.key, key)));
+      .where(and(eq(blogs.id, blogId), eq(blogs.key, key)));
 
     if (result.length === 0) {
       return {
@@ -34,7 +37,7 @@ export default async function checkBlogKey(blogId: string, key: string) {
 
 export async function editBlog(
   blogId: Blog["id"],
-  key: string,
+  key: Blog["key"],
   formData: FormData
 ) {
   const title = formData.get("title")?.toString().trim();
@@ -54,14 +57,12 @@ export async function editBlog(
     return { success: false, message: "Unsupported image type." };
   }
 
+  type UpdateSet = Partial<
+    Pick<Blog, "title" | "description" | "content" | "image" | "key">
+  >;
+
   try {
-    const updateSet: Partial<{
-      title: string;
-      description: string;
-      content: string;
-      image: string;
-      key: string;
-    }> = {
+    const updateSet: UpdateSet = {
       title,
       description,
       content

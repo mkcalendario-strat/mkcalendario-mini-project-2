@@ -1,4 +1,4 @@
-interface Identity {
+export interface Identity {
   userName: string;
   userAvatarSeed: string;
 }

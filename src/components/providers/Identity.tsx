@@ -1,6 +1,7 @@
+import { Identity as IdentityType } from "@/types/identity";
 import AvatarProvider from "./AvatarProvider";
 
-interface IdentityProps extends Identity {
+interface IdentityProps extends IdentityType {
   reverse?: boolean;
   imageSize: string;
   description: string;
