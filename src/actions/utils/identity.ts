@@ -9,11 +9,7 @@ import {
   uniqueNamesGenerator
 } from "unique-names-generator";
 import { v4 as uuidv4 } from "uuid";
-
-const IDENTITY = {
-  USER_NAME: "user_name",
-  USER_AVATAR_SEED: "user_avatar_seed"
-};
+import { IDENTITY } from "../identity/utils";
 
 export async function getIdentity() {
   const cookieStore = await cookies();
@@ -47,4 +43,13 @@ export async function generateUserName() {
 
 export async function generateAvatarSeed() {
   return uuidv4();
+}
+
+export async function hasIdentity() {
+  const cookieStore = await cookies();
+
+  const userName = cookieStore.get(IDENTITY.USER_NAME);
+  const userAvatarSeed = cookieStore.get(IDENTITY.USER_AVATAR_SEED);
+
+  return Boolean(userName?.value && userAvatarSeed?.value);
 }
