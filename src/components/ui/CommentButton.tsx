@@ -2,6 +2,7 @@
 
 import { addComment } from "@/actions/interactions";
 import useUserData from "@/hooks/useUserData";
+import { Blog } from "@/types/blogs";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { Fragment, useState } from "react";
 import AvatarProvider from "../providers/AvatarProvider";
@@ -15,7 +16,6 @@ interface CommentButtonProps extends Pick<Blog, "id"> {
 }
 
 export default function CommentButton({ id, className }: CommentButtonProps) {
-  void id;
   const [isVisible, setIsModalVisible] = useState(false);
 
   const toggleModal = () => setIsModalVisible((prev) => !prev);

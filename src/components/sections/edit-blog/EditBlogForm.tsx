@@ -6,15 +6,14 @@ import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import WYSIWYGEditor from "@/components/ui/WYSIWYGEditor";
+import { Blog } from "@/types/blogs";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { redirect, RedirectType } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-interface EditBlogFormProps extends Pick<Blog, "id"> {
-  blogKey: string;
-}
+type EditBlogFormProps = Pick<Blog, "id" | "key">;
 
-export default function EditBlogForm({ id, blogKey }: EditBlogFormProps) {
+export default function EditBlogForm({ id, key }: EditBlogFormProps) {
   const formRef = useRef<HTMLFormElement | null>(null);
   const [blogData, setBlogData] = useState({
     title: "",
@@ -54,7 +53,7 @@ export default function EditBlogForm({ id, blogKey }: EditBlogFormProps) {
     evt.preventDefault();
 
     const formData = new FormData(formRef.current as HTMLFormElement);
-    const { success, message, blogId } = await editBlog(id, blogKey, formData);
+    const { success, message, blogId } = await editBlog(id, key, formData);
 
     if (!success) {
       showErrorToast(message);

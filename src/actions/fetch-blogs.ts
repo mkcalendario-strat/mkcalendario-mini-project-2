@@ -1,19 +1,12 @@
 "use server";
 
+import { BlogResult } from "@/types/blogs";
 import { formatTime } from "@/utils/time";
 import { getTableColumns } from "drizzle-orm";
 import { blogs } from "../../drizzle/schema";
 import { db } from "./db";
 
-type BlogsResult = Omit<Blog, "key" | "comments" | "hearts">[] | undefined;
-
-export type FetchBlogsReturn = {
-  success: boolean;
-  message: string;
-  blogs?: BlogsResult;
-};
-
-export default async function fetchBlogs(): Promise<FetchBlogsReturn> {
+export default async function fetchBlogs() {
   try {
     // Exclude key from being fetched.
     const { key, ...rest } = getTableColumns(blogs);
@@ -32,7 +25,7 @@ export default async function fetchBlogs(): Promise<FetchBlogsReturn> {
     return {
       success: true,
       message: "Blogs succesfully fetched.",
-      blogs: formatted as unknown as BlogsResult
+      blogs: formatted as BlogResult[]
     };
   } catch {
     return { success: false, message: "Error. Cannot fetch blogs." };

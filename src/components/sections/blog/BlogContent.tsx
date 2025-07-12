@@ -1,4 +1,5 @@
 import { DashboardContent } from "@/components/layouts/DashboardContent";
+import { Blog } from "@/types/blogs";
 
 type BlogContentProps = Pick<Blog, "content">;
 

@@ -1,5 +1,6 @@
 "use server";
 
+import { Blog } from "@/types/blogs";
 import { uploadBlogImage } from "@/utils/files";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -32,7 +33,7 @@ export default async function checkBlogKey(blogId: string, key: string) {
 }
 
 export async function editBlog(
-  blogId: string,
+  blogId: Blog["id"],
   key: string,
   formData: FormData
 ) {
@@ -79,7 +80,7 @@ export async function editBlog(
     const result = await db
       .update(blogs)
       .set(updateSet)
-      .where(and(eq(blogs.id, parseInt(blogId)), eq(blogs.key, key)))
+      .where(and(eq(blogs.id, blogId), eq(blogs.key, key)))
       .returning({ editedId: blogs.id });
 
     if (result.length === 0) {

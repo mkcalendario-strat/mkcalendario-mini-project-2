@@ -13,7 +13,7 @@ type GenerateMetadataProps = {
 
 export async function generateMetadata({ params }: GenerateMetadataProps) {
   const { id } = await params;
-  const { data } = await fetchBlog(id);
+  const { data } = await fetchBlog(parseInt(id));
 
   return {
     title: data?.title,
@@ -27,7 +27,7 @@ interface BlogProps {
 
 export default async function Blog({ params }: BlogProps) {
   const { id } = await params;
-  const { success, message, data } = await fetchBlog(id);
+  const { success, message, data } = await fetchBlog(parseInt(id));
 
   if (!success) {
     showErrorToast(message);

@@ -2,6 +2,7 @@
 
 import getHearts from "@/actions/get-hearts";
 import sendHeart from "@/actions/send-heart";
+import { Blog } from "@/types/blogs";
 import { showErrorToast } from "@/utils/toast";
 import { useCallback, useEffect, useState } from "react";
 import Button from "./Button";
