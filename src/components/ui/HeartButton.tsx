@@ -1,7 +1,7 @@
 "use client";
 
 import getHearts from "@/actions/get-hearts";
-import sendHeart from "@/actions/send-heart";
+import sendHeart from "@/actions/interactions/interactions";
 import { Blog } from "@/types/blogs";
 import { showErrorToast } from "@/utils/toast";
 import { useCallback, useEffect, useState } from "react";

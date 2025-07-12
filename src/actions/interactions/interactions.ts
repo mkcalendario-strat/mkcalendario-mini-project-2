@@ -3,9 +3,9 @@
 import { Blog } from "@/types/blogs";
 import { CommentsData, UserComment } from "@/types/interactions";
 import { formatTime } from "@/utils/time";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { comments } from "../../../drizzle/schema";
+import { blogs, comments } from "../../../drizzle/schema";
 import { db } from "../db";
 import { getIdentity } from "../utils/identity";
 import { isCommentKeyCorrect } from "./utils";
@@ -133,5 +133,22 @@ export async function deleteComment(
     return { success: true, message: "Comment deleted sucessfully." };
   } catch {
     return { success: false, message: "Error. Cannot delete key." };
+  }
+}
+
+export default async function sendHeart(blogId: Blog["id"]) {
+  try {
+    const result = await db
+      .update(blogs)
+      .set({
+        hearts: sql`${blogs.hearts} + 1`
+      })
+      .where(eq(blogs.id, blogId))
+      .returning({ hearts: blogs.hearts });
+
+    const hearts = result[0].hearts;
+    return { success: true, message: "Success giving heart.", hearts };
+  } catch {
+    return { success: false, message: "Error. Cannot give heart." };
   }
 }
