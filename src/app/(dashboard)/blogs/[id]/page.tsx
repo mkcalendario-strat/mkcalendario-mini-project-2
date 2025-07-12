@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: GenerateMetadataProps) {
   const { data } = await fetchBlog(id);
 
   return {
-    title: `${data?.title} | Large`,
+    title: data?.title,
     description: data?.description
   };
 }
