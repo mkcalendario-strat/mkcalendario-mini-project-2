@@ -1,14 +1,12 @@
 import fetchBlogs from "@/actions/fetch-blogs";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import BlogCard from "@/components/ui/BlogCard";
-import { showErrorToast } from "@/utils/toast";
 import { redirect, RedirectType } from "next/navigation";
 
 export default async function BlogsList() {
-  const { success, message, blogs } = await fetchBlogs();
+  const { success, blogs } = await fetchBlogs();
 
   if (!success) {
-    showErrorToast(message);
     return null;
   }
 

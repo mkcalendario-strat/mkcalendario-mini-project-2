@@ -1,15 +1,13 @@
-"use client";
-
+import { getIdentity } from "@/actions/utils/identity";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import AvatarProvider from "@/components/providers/AvatarProvider";
 import CommentButton from "@/components/ui/CommentButton";
 import HeartButton from "@/components/ui/HeartButton";
-import useUserData from "@/hooks/useUserData";
 
 type BlogInteractionProps = Pick<Blog, "id">;
 
-export default function BlogInteraction({ id }: BlogInteractionProps) {
-  const { userName, userAvatarSeed } = useUserData();
+export default async function BlogInteraction({ id }: BlogInteractionProps) {
+  const { userName, userAvatarSeed } = await getIdentity();
 
   return (
     <DashboardContent

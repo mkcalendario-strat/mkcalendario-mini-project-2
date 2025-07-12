@@ -1,12 +1,12 @@
 "use client";
 
+import { getIdentity } from "@/actions/utils/identity";
 import useIsOnMobile from "@/hooks/useIsOnMobile";
-import useUserData from "@/hooks/useUserData";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import ChangeIdentityButton from "../misc/ChangeIdentityButton";
+import { useCallback, useEffect, useState } from "react";
+import ChangeIdentityModal from "../misc/ChangeIdentityButton";
 import AvatarProvider from "../providers/AvatarProvider";
 
 // Dashboard
@@ -81,11 +81,26 @@ const LINKS = [
 
 function Sidebar({ isOpen }: SidebarProps) {
   const pathname = usePathname();
-  const { userName, userAvatarSeed } = useUserData();
+  const [identity, setIdentity] = useState<Identity>({
+    userName: "",
+    userAvatarSeed: ""
+  });
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const toggleModal = () => setIsModalVisible((prev) => !prev);
 
   const baseClasses = "flex font-medium items-center gap-3 px-5 py-3";
   const activeClasses = "text-neutral-100 bg-neutral-900";
   const inactiveClasses = "text-neutral-900 hover:bg-neutral-100";
+
+  const fetchIdentity = useCallback(async () => {
+    const identity = await getIdentity();
+    setIdentity(identity);
+  }, []);
+
+  useEffect(() => {
+    fetchIdentity();
+  }, [fetchIdentity]);
 
   if (!isOpen) return null;
 
@@ -111,15 +126,24 @@ function Sidebar({ isOpen }: SidebarProps) {
             <div>
               <AvatarProvider
                 size="w-[40px]"
-                seed={userAvatarSeed}
+                seed={identity.userAvatarSeed}
               />
             </div>
             <div className="text-sm leading-[20px]">
               <p className="text-xs">Identified as</p>
-              <p className="font-medium">{userName}</p>
+              <p className="font-medium">{identity.userName}</p>
             </div>
           </div>
-          <ChangeIdentityButton />
+          <button
+            onClick={toggleModal}
+            className="cursor-pointer">
+            <i className="fas fa-grid-2 text-neutral-900" />
+          </button>
+          <ChangeIdentityModal
+            toggle={toggleModal}
+            visible={isModalVisible}
+            refetch={fetchIdentity}
+          />
         </div>
       </div>
     </aside>

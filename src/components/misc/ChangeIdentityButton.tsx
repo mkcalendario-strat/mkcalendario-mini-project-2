@@ -1,58 +1,60 @@
 "use client";
 
-import Cookies from "js-cookie";
-import { Fragment, useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import {
+  createIdentity,
+  generateAvatarSeed,
+  getIdentity
+} from "@/actions/utils/identity";
+import { useCallback, useEffect, useState } from "react";
 import AvatarProvider from "../providers/AvatarProvider";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import Modal from "../ui/Modal";
 
-export default function ChangeIdentityButton() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const toggleModal = () => setIsModalVisible((prev) => !prev);
-
-  return (
-    <Fragment>
-      <button
-        onClick={toggleModal}
-        className="cursor-pointer">
-        <i className="fas fa-grid-2 text-neutral-900" />
-      </button>
-      <ChangeIdentityModal
-        toggle={toggleModal}
-        visible={isModalVisible}
-      />
-    </Fragment>
-  );
+interface Identity {
+  userName: string;
+  userAvatarSeed: string;
 }
 
 interface ChangeIdentityModalProps {
   visible: boolean;
+  refetch: () => void;
   toggle: () => void;
 }
 
-function ChangeIdentityModal({ visible, toggle }: ChangeIdentityModalProps) {
-  const [name, setName] = useState("");
-  const [avatarSeed, setAvatarSeed] = useState("");
+export default function ChangeIdentityModal({
+  refetch,
+  visible,
+  toggle
+}: ChangeIdentityModalProps) {
+  const [identity, setIdentity] = useState<Identity | null>(null);
 
-  const regenerateSeed = () => setAvatarSeed(uuidv4());
-
-  const handleSetName = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setName(evt.target.value);
+  const regenerateSeed = async () => {
+    const seed = await generateAvatarSeed();
+    setIdentity((prev) => (prev ? { ...prev, userAvatarSeed: seed } : null));
   };
 
-  const handleCreateIdentity = () => {
-    Cookies.set("user_name", name ?? "Anonymous");
-    Cookies.set("user_avatar_seed", avatarSeed ?? "Anonymous");
-
-    window.location.reload();
+  const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = evt.target;
+    setIdentity((prev) => (prev ? { ...prev, [name]: value } : null));
   };
+
+  const handleCreateIdentity = async () => {
+    if (!identity) return;
+    const { userName, userAvatarSeed } = identity;
+    await createIdentity({ userName, userAvatarSeed });
+    toggle();
+    refetch();
+  };
+
+  const fetchUserData = useCallback(async () => {
+    const identity = await getIdentity();
+    setIdentity(identity);
+  }, []);
 
   useEffect(() => {
-    setName(Cookies.get("user_name") ?? "");
-    setAvatarSeed(Cookies.get("user_avatar_seed") ?? "");
-  }, []);
+    if (visible) fetchUserData();
+  }, [fetchUserData, visible]);
 
   return (
     <Modal
@@ -60,31 +62,36 @@ function ChangeIdentityModal({ visible, toggle }: ChangeIdentityModalProps) {
       visible={visible}
       title="Create Identity"
       className="flex flex-col gap-5">
-      <div className="flex flex-col items-center justify-center gap-2">
-        <AvatarProvider
-          size="w-[150px]"
-          seed={avatarSeed}
-        />
-        <p className="text-2xl font-medium">{name}</p>
-        <Button
-          onClick={regenerateSeed}
-          className="bg-neutral-900 text-neutral-100">
-          <i className="far fa-rotate-reverse" />
-        </Button>
-      </div>
+      {identity && (
+        <>
+          <div className="flex flex-col items-center justify-center gap-2">
+            <AvatarProvider
+              size="w-[150px]"
+              seed={identity.userAvatarSeed}
+            />
+            <p className="text-2xl font-medium">{identity.userName}</p>
+            <Button
+              onClick={regenerateSeed}
+              className="bg-neutral-900 text-neutral-100">
+              <i className="far fa-rotate-reverse" />
+            </Button>
+          </div>
 
-      <Input
-        id="name"
-        value={name}
-        placeholder="Your anonymous name."
-        onChange={handleSetName}
-      />
+          <Input
+            id="name"
+            name="userName"
+            value={identity.userName}
+            placeholder="Your anonymous name."
+            onChange={handleInputChange}
+          />
 
-      <Button
-        onClick={handleCreateIdentity}
-        className="bg-neutral-900 text-neutral-100">
-        Create Identity
-      </Button>
+          <Button
+            onClick={handleCreateIdentity}
+            className="bg-neutral-900 text-neutral-100">
+            Create Identity
+          </Button>
+        </>
+      )}
     </Modal>
   );
 }
