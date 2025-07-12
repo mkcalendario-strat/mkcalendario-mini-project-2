@@ -79,9 +79,3 @@ function BlogDetails({ title, description }: BlogDetailsProps) {
     </div>
   );
 }
-
-interface UserDetailsProps {
-  name: string;
-  avatarSeed: string;
-  timestamp: string;
-}
