@@ -1,6 +1,6 @@
 "use client";
 
-import { addComment } from "@/actions/interactions";
+import { addComment } from "@/actions/interactions/interactions";
 import useUserData from "@/hooks/useUserData";
 import { Blog } from "@/types/blogs";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";

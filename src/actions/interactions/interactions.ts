@@ -5,10 +5,10 @@ import { CommentsData, UserComment } from "@/types/interactions";
 import { formatTime } from "@/utils/time";
 import { and, desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { comments } from "../../drizzle/schema";
-import { db } from "./db";
-import { isCommentKeyCorrect } from "./interactions/utils";
-import { getIdentity } from "./utils/identity";
+import { comments } from "../../../drizzle/schema";
+import { db } from "../db";
+import { getIdentity } from "../utils/identity";
+import { isCommentKeyCorrect } from "./utils";
 
 interface AddCommentProps extends Pick<UserComment, "text"> {
   blogId: Blog["id"];

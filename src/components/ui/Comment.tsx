@@ -4,7 +4,7 @@ import {
   deleteComment,
   editComment,
   fetchComment
-} from "@/actions/interactions";
+} from "@/actions/interactions/interactions";
 import { UserComment } from "@/types/interactions";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { Fragment, useCallback, useEffect, useState } from "react";

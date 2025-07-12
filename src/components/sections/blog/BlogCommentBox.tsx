@@ -1,4 +1,4 @@
-import { fetchComments } from "@/actions/interactions";
+import { fetchComments } from "@/actions/interactions/interactions";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Comment from "@/components/ui/Comment";
 import { Blog } from "@/types/blogs";
