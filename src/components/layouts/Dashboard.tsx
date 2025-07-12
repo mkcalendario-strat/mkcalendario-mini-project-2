@@ -1,10 +1,13 @@
 "use client";
 
 import useIsOnMobile from "@/hooks/useIsOnMobile";
+import useUserData from "@/hooks/useUserData";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import ChangeIdentityButton from "../misc/ChangeIdentityButton";
+import AvatarProvider from "../providers/AvatarProvider";
 
 // Dashboard
 
@@ -78,6 +81,7 @@ const LINKS = [
 
 function Sidebar({ isOpen }: SidebarProps) {
   const pathname = usePathname();
+  const { userName, userAvatarSeed } = useUserData();
 
   const baseClasses = "flex font-medium items-center gap-3 px-5 py-3";
   const activeClasses = "text-neutral-100 bg-neutral-900";
@@ -101,6 +105,22 @@ function Sidebar({ isOpen }: SidebarProps) {
             </Link>
           );
         })}
+
+        <div className="flex justify-between gap-2 bg-neutral-100 p-[10px]">
+          <div className="flex flex-wrap gap-2">
+            <div>
+              <AvatarProvider
+                size="w-[40px]"
+                seed={userAvatarSeed}
+              />
+            </div>
+            <div className="text-sm leading-[20px]">
+              <p className="text-xs">Identified as</p>
+              <p className="font-medium">{userName}</p>
+            </div>
+          </div>
+          <ChangeIdentityButton />
+        </div>
       </div>
     </aside>
   );

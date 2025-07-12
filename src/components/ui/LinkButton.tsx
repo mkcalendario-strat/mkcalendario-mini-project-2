@@ -17,7 +17,7 @@ export default function LinkButton({
   className
 }: LinkButtonProps) {
   const baseClasses =
-    "py-[10px] px-[20px] inline-flex items-center gap-3 cursor-pointer font-[500]";
+    "py-[10px] px-[20px] inline-flex justify-center items-center gap-3 cursor-pointer font-[500]";
 
   const classes = `${baseClasses} ${className ?? ""}`.trim();
 
