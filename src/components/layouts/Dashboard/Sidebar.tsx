@@ -2,7 +2,7 @@
 
 import { getIdentity } from "@/actions/utils/identity";
 import ChangeIdentityModal from "@/components/misc/ChangeIdentityButton";
-import Identity from "@/components/providers/Identity";
+import Identity from "@/components/ui/Identity";
 import { Identity as IdentityT } from "@/types/identity";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
