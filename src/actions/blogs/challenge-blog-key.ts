@@ -6,7 +6,7 @@ import { and, eq } from "drizzle-orm";
 
 type CheckBlogKey = Pick<Blog, "id" | "key">;
 
-export async function challengeBlogKey({ id, key }: CheckBlogKey) {
+export default async function challengeBlogKey({ id, key }: CheckBlogKey) {
   if (!id || !key) {
     return { success: false, message: "All fields are required." };
   }

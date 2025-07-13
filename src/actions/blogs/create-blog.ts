@@ -11,7 +11,7 @@ interface CreateBlog
   image: File | null;
 }
 
-export async function createBlog({
+export default async function createBlog({
   key,
   image,
   title,

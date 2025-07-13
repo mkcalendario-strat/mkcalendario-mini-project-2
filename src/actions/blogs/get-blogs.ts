@@ -1,11 +1,11 @@
 "use server";
 import { blogs } from "#/drizzle/schema";
 import { db } from "@/actions/db";
-import { Blog, BlogResult } from "@/types/blogs";
+import { BlogResult } from "@/types/blogs";
 import { formatTime } from "@/utils/time";
-import { desc, eq, getTableColumns } from "drizzle-orm";
+import { desc, getTableColumns } from "drizzle-orm";
 
-export async function getBlogs() {
+export default async function getBlogs() {
   try {
     // Exclude key from being fetched.
     const { key, ...rest } = getTableColumns(blogs);
@@ -28,20 +28,5 @@ export async function getBlogs() {
     };
   } catch {
     return { success: false, message: "Error. Cannot fetch blogs." };
-  }
-}
-
-export async function getHearts(blogId: Blog["id"]) {
-  try {
-    const result = await db
-      .select({ hearts: blogs.hearts })
-      .from(blogs)
-      .where(eq(blogs.id, blogId))
-      .limit(1);
-
-    const hearts = result[0].hearts;
-    return { success: true, message: "Success fetching hearts count.", hearts };
-  } catch {
-    return { success: false, message: "Error. Cannot fetch hearts count." };
   }
 }

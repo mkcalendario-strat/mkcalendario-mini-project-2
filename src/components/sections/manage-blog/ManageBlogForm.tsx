@@ -1,7 +1,7 @@
 "use client";
 
-import { challengeBlogKey } from "@/actions/blogs/challenge-blog-key";
-import { deleteBlog } from "@/actions/blogs/delete-blog";
+import challengeBlogKey from "@/actions/blogs/challenge-blog-key";
+import deleteBlog from "@/actions/blogs/delete-blog";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";

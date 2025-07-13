@@ -5,7 +5,7 @@ import { formatTime } from "@/utils/time";
 import { eq } from "drizzle-orm";
 import { db } from "../db";
 
-export async function getBlog(id: Blog["id"]) {
+export default async function getBlog(id: Blog["id"]) {
   try {
     const result = await db
       .select()

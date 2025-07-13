@@ -1,4 +1,4 @@
-import { getBlogs } from "@/actions/blogs/get-blogs";
+import getBlogs from "@/actions/blogs/get-blogs";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import BlogCard from "@/components/ui/BlogCard";
 import { redirect, RedirectType } from "next/navigation";

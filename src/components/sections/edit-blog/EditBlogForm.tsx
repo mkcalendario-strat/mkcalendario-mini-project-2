@@ -1,7 +1,7 @@
 "use client";
 
-import { editBlog } from "@/actions/blogs/edit-blog";
-import { getBlog } from "@/actions/blogs/get-blog";
+import editBlog from "@/actions/blogs/edit-blog";
+import getBlog from "@/actions/blogs/get-blog";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";

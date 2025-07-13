@@ -12,7 +12,7 @@ interface EditBlog
   newKey: Blog["key"];
 }
 
-export async function editBlog({
+export default async function editBlog({
   id,
   key,
   title,

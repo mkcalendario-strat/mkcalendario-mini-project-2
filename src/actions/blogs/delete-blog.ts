@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 
 type DeleteBlog = Pick<Blog, "id" | "key">;
 
-export async function deleteBlog({ id, key }: DeleteBlog) {
+export default async function deleteBlog({ id, key }: DeleteBlog) {
   if (!id || !key) {
     return { success: false, message: "All fields are required." };
   }
