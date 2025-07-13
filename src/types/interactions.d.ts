@@ -1,11 +1,7 @@
-import { Identity } from "@/types/identity";
+import { comments } from "#/drizzle/schema";
+import { InferSelectModel } from "drizzle-orm";
 
-export interface UserComment extends Identity {
-  id: string;
-  key: string;
-  text: string;
-  timestamp: string;
-}
+export type UserComment = InferSelectModel<typeof comments>;
 
 export type CommentsData = Pick<
   UserComment,

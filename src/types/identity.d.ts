@@ -1,4 +1,3 @@
-export interface Identity {
-  userName: string;
-  userAvatarSeed: string;
-}
+import { UserComment } from "./interactions";
+
+export type Identity = Pick<UserComment, "userName" | "userAvatarSeed">;
