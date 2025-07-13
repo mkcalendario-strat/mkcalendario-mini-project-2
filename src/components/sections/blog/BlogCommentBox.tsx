@@ -1,4 +1,4 @@
-import { fetchComments } from "@/actions/interactions/interactions";
+import getComments from "@/actions/interactions/get-comments";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Comment from "@/components/ui/Comment";
 import { Blog } from "@/types/blogs";
@@ -6,7 +6,7 @@ import { Blog } from "@/types/blogs";
 type BlogCommentBoxProps = Pick<Blog, "id">;
 
 export default async function BlogCommentBox({ id }: BlogCommentBoxProps) {
-  const { success, comments } = await fetchComments(id);
+  const { success, comments } = await getComments(id);
 
   if (!success || !comments) {
     return null;

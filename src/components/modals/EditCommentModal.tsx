@@ -1,6 +1,7 @@
 "use client";
 
-import { editComment, fetchComment } from "@/actions/interactions/interactions";
+import editComment from "@/actions/interactions/edit-comment";
+import getComment from "@/actions/interactions/get-comment";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Modal from "@/components/ui/Modal";
@@ -20,7 +21,7 @@ export default function EditCommentModal({
   const [formData, setFormData] = useState({ key: "", editedComment: "" });
 
   const fetchCommentData = useCallback(async () => {
-    const { success, message, data } = await fetchComment(id);
+    const { success, message, data } = await getComment(id);
     if (!success || !data) return showErrorToast(message);
     setFormData((prev) => ({ ...prev, editedComment: data.text }));
   }, [id]);

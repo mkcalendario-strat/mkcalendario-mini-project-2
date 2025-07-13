@@ -1,4 +1,4 @@
-import { addComment } from "@/actions/interactions/interactions";
+import addComment from "@/actions/interactions/add-comment";
 import Avatar from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";

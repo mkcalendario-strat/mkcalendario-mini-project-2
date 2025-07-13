@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteComment } from "@/actions/interactions/interactions";
+import deleteComment from "@/actions/interactions/delete-comment";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Modal from "@/components/ui/Modal";
