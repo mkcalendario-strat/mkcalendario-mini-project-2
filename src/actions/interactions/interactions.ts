@@ -55,7 +55,7 @@ export async function fetchComments(blogId: Blog["id"]) {
     const formatted = result.map((data) => {
       return {
         ...data,
-        id: data.id.toString(),
+        id: data.id,
         timestamp: formatTime(data.timestamp as string)
       };
     }) as CommentsData[];
@@ -76,10 +76,10 @@ export async function fetchComment(commentId: UserComment["id"]) {
       .select({ id: comments.id, text: comments.text })
       .from(comments)
       .orderBy(desc(comments.timestamp))
-      .where(eq(comments.id, parseInt(commentId)));
+      .where(eq(comments.id, commentId));
 
     const formatted = result.map((data) => {
-      return { ...data, id: data.id.toString() };
+      return { ...data, id: data.id };
     }) as CommentsData[];
 
     return {
@@ -102,10 +102,7 @@ export async function editComment({ id, key, text }: EditCommentProps) {
       return { success: false, message: "Error. Comment key is incorrect." };
     }
 
-    await db
-      .update(comments)
-      .set({ text })
-      .where(eq(comments.id, parseInt(id)));
+    await db.update(comments).set({ text }).where(eq(comments.id, id));
 
     revalidatePath("/blogs/[id]");
     return { success: true, message: "Comment edited successfully." };
@@ -115,7 +112,7 @@ export async function editComment({ id, key, text }: EditCommentProps) {
 }
 
 export async function deleteComment(
-  id: UserComment["key"],
+  id: UserComment["id"],
   key: UserComment["key"]
 ) {
   try {
@@ -127,7 +124,7 @@ export async function deleteComment(
 
     await db
       .delete(comments)
-      .where(and(eq(comments.id, parseInt(id)), eq(comments.key, key)));
+      .where(and(eq(comments.id, id), eq(comments.key, key)));
 
     revalidatePath("/blogs/[id]");
     return { success: true, message: "Comment deleted sucessfully." };
