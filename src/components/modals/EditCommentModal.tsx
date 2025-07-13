@@ -1,0 +1,83 @@
+"use client";
+
+import { editComment, fetchComment } from "@/actions/interactions/interactions";
+import { UserComment } from "@/types/interactions";
+import { showErrorToast, showSuccessToast } from "@/utils/toast";
+import { useCallback, useEffect, useState } from "react";
+import Button from "../ui/Button";
+import Input from "../ui/Input";
+import Modal from "../ui/Modal";
+import Textarea from "../ui/Textarea";
+
+interface EditCommentModalProps extends Pick<UserComment, "id"> {
+  visible: boolean;
+  toggle: () => void;
+}
+
+export default function EditCommentModal({
+  id,
+  visible,
+  toggle
+}: EditCommentModalProps) {
+  const [formData, setFormData] = useState({ key: "", editedComment: "" });
+
+  const fetchCommentData = useCallback(async () => {
+    const { success, message, data } = await fetchComment(id);
+    if (!success || !data) return showErrorToast(message);
+    setFormData((prev) => ({ ...prev, editedComment: data.text }));
+  }, [id]);
+
+  useEffect(() => {
+    if (visible) fetchCommentData();
+  }, [visible, fetchCommentData]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleEdit = async () => {
+    const { key, editedComment } = formData;
+    const { success, message } = await editComment({
+      id: id,
+      key,
+      text: editedComment
+    });
+    if (!success) return showErrorToast(message);
+    showSuccessToast(message);
+    toggle();
+    setFormData({ key: "", editedComment: "" });
+  };
+
+  return (
+    <Modal
+      title="Edit Comment"
+      visible={visible}
+      toggle={toggle}
+      className="flex flex-col gap-2">
+      <Textarea
+        id="edited-comment"
+        name="editedComment"
+        placeholder="Comment"
+        value={formData.editedComment}
+        onChange={handleChange}
+      />
+      <Input
+        id="desired-key"
+        type="password"
+        name="key"
+        placeholder="Enter Comment Key"
+        value={formData.key}
+        onChange={handleChange}
+      />
+      <Button
+        onClick={handleEdit}
+        className="self-baseline bg-green-500 text-neutral-100">
+        <i className="far fa-edit" />
+        Edit Comment
+      </Button>
+    </Modal>
+  );
+}
