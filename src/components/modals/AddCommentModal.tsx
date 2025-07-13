@@ -1,13 +1,13 @@
 import { addComment } from "@/actions/interactions/interactions";
+import Avatar from "@/components/ui/Avatar";
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import Modal from "@/components/ui/Modal";
+import Textarea from "@/components/ui/Textarea";
 import useUserData from "@/hooks/useUserData";
 import { Blog } from "@/types/blogs";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { useState } from "react";
-import Avatar from "../ui/Avatar";
-import Button from "../ui/Button";
-import Input from "../ui/Input";
-import Modal from "../ui/Modal";
-import Textarea from "../ui/Textarea";
 
 interface AddCommentModalProps {
   toggle: () => void;

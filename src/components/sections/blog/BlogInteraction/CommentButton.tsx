@@ -1,9 +1,9 @@
 "use client";
 
+import { AddCommentModal } from "@/components/modals/AddCommentModal";
+import Button from "@/components/ui/Button";
 import { Blog } from "@/types/blogs";
 import { Fragment, useState } from "react";
-import { AddCommentModal } from "../../../modals/AddCommentModal";
-import Button from "../../../ui/Button";
 
 interface CommentButtonProps extends Pick<Blog, "id"> {
   className?: string;

@@ -2,10 +2,10 @@
 
 import { getHearts } from "@/actions/blogs/blogs";
 import sendHeart from "@/actions/interactions/interactions";
+import Button from "@/components/ui/Button";
 import { Blog } from "@/types/blogs";
 import { showErrorToast } from "@/utils/toast";
 import { useCallback, useEffect, useState } from "react";
-import Button from "../../../ui/Button";
 
 interface HeartButtonProps extends Pick<Blog, "id"> {
   className?: string;

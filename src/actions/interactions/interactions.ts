@@ -1,13 +1,13 @@
 "use server";
 
+import { blogs, comments } from "#/drizzle/schema";
+import { db } from "@/actions/db";
+import { getIdentity } from "@/actions/utils/identity";
 import { Blog } from "@/types/blogs";
 import { CommentsData, UserComment } from "@/types/interactions";
 import { formatTime } from "@/utils/time";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { blogs, comments } from "../../../drizzle/schema";
-import { db } from "../db";
-import { getIdentity } from "../utils/identity";
 import { isCommentKeyCorrect } from "./utils";
 
 interface AddCommentProps extends Pick<UserComment, "text"> {

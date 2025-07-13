@@ -1,12 +1,12 @@
 "use client";
 
 import { deleteComment } from "@/actions/interactions/interactions";
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import Modal from "@/components/ui/Modal";
 import { UserComment } from "@/types/interactions";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { useState } from "react";
-import Button from "../ui/Button";
-import Input from "../ui/Input";
-import Modal from "../ui/Modal";
 
 interface DeleteCommentModalProps extends Pick<UserComment, "id"> {
   toggle: () => void;

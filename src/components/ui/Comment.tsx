@@ -1,10 +1,10 @@
 "use client";
 
+import DeleteCommentModal from "@/components/modals/DeleteCommentModal";
+import EditCommentModal from "@/components/modals/EditCommentModal";
+import Avatar from "@/components/ui/Avatar";
 import { UserComment } from "@/types/interactions";
 import { Fragment, useState } from "react";
-import DeleteCommentModal from "../modals/DeleteCommentModal";
-import EditCommentModal from "../modals/EditCommentModal";
-import Avatar from "../ui/Avatar";
 
 export type CommentsProps = Pick<
   UserComment,

@@ -1,13 +1,13 @@
 "use client";
 
 import { editComment, fetchComment } from "@/actions/interactions/interactions";
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import Modal from "@/components/ui/Modal";
+import Textarea from "@/components/ui/Textarea";
 import { UserComment } from "@/types/interactions";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { useCallback, useEffect, useState } from "react";
-import Button from "../ui/Button";
-import Input from "../ui/Input";
-import Modal from "../ui/Modal";
-import Textarea from "../ui/Textarea";
 
 interface EditCommentModalProps extends Pick<UserComment, "id"> {
   toggle: () => void;

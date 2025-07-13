@@ -1,13 +1,13 @@
 "use server";
 import { blogs } from "#/drizzle/schema";
+import { db } from "@/actions/db";
+import { getIdentity } from "@/actions/utils/identity";
 import { Blog, BlogResult } from "@/types/blogs";
 import { uploadBlogImage } from "@/utils/files";
 import { formatTime } from "@/utils/time";
 import { and, desc, eq, getTableColumns } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { v4 as uuidv4 } from "uuid";
-import { db } from "../db";
-import { getIdentity } from "../utils/identity";
 
 interface CreateBlog
   extends Pick<Blog, "title" | "description" | "content" | "key"> {

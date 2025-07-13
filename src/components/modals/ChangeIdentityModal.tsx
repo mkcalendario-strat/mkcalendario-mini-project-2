@@ -6,11 +6,11 @@ import {
   getIdentity
 } from "@/actions/utils/identity";
 import Avatar from "@/components/ui/Avatar";
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import Modal from "@/components/ui/Modal";
 import { Identity } from "@/types/identity";
 import { Fragment, useCallback, useEffect, useState } from "react";
-import Button from "../ui/Button";
-import Input from "../ui/Input";
-import Modal from "../ui/Modal";
 
 interface ChangeIdentityModalProps {
   visible: boolean;
