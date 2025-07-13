@@ -22,14 +22,14 @@ export default async function BlogInteraction({ id }: BlogInteractionProps) {
           description="Interacting as"
         />
 
-        <div className="flex w-full gap-1 md:w-auto">
+        <div className="flex w-full flex-wrap gap-1 md:w-auto">
           <HeartButton
             id={id}
-            className="w-[50%] md:w-auto"
+            className="w-[50%] flex-1 text-xs md:w-auto md:text-base"
           />
           <CommentButton
             id={id}
-            className="w-[50%] md:w-auto"
+            className="w-[50%] flex-1 text-xs md:w-auto md:text-base"
           />
         </div>
       </div>
