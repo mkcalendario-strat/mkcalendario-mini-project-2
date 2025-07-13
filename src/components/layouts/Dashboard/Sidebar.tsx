@@ -1,86 +1,12 @@
 "use client";
 
-import { initializeIdentity } from "@/actions/identity/identity";
 import { getIdentity } from "@/actions/utils/identity";
-import useIsOnMobile from "@/hooks/useIsOnMobile";
-import { Identity as IdentityType } from "@/types/identity";
-import Image from "next/image";
+import ChangeIdentityModal from "@/components/misc/ChangeIdentityButton";
+import Identity from "@/components/providers/Identity";
+import { Identity as IdentityT } from "@/types/identity";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import ChangeIdentityModal from "../misc/ChangeIdentityButton";
-import Identity from "../providers/Identity";
-
-// Dashboard
-
-interface DashboardProps {
-  children: React.ReactNode;
-}
-
-export default function Dashboard({ children }: DashboardProps) {
-  const [identity, setIdentity] = useState<boolean | null>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const isOnMobile = useIsOnMobile();
-
-  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
-
-  const checkIdentity = useCallback(async () => {
-    await initializeIdentity();
-    setIdentity(true);
-  }, []);
-
-  useEffect(() => {
-    setIsSidebarOpen(isOnMobile !== null && isOnMobile !== true);
-  }, [isOnMobile]);
-
-  useEffect(() => {
-    checkIdentity();
-  }, [checkIdentity]);
-
-  if (!identity) return null;
-
-  return (
-    <section className="dashboard-grid relative min-h-screen">
-      <Navbar toggleSidebar={toggleSidebar} />
-      <Sidebar isOpen={isSidebarOpen} />
-      <Main>{children}</Main>
-    </section>
-  );
-}
-
-// Dashboard Navbar
-
-interface NavbarProps {
-  toggleSidebar: () => void;
-}
-
-function Navbar({ toggleSidebar }: NavbarProps) {
-  return (
-    <nav className="dashboard-nav fixed top-0 left-0 z-[1] w-full bg-neutral-900 p-[15px]">
-      <div className="flex justify-between">
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <Image
-            alt="user"
-            width={35}
-            height={35}
-            src="/assets/images/logos/light.svg"
-          />
-          <p className="font-medium text-neutral-100">Large</p>
-        </div>
-
-        {/* Toggle Button */}
-        <button
-          onClick={toggleSidebar}
-          className="block cursor-pointer text-neutral-100 md:hidden">
-          <i className="far fa-bars" />
-        </button>
-      </div>
-    </nav>
-  );
-}
-
-// Dashboard Sidebar
 
 interface SidebarProps {
   isOpen: boolean;
@@ -93,9 +19,9 @@ const LINKS = [
   { label: "Create Blogs", path: "/blogs/create", icon: "fa-square-plus" }
 ];
 
-function Sidebar({ isOpen }: SidebarProps) {
+export default function Sidebar({ isOpen }: SidebarProps) {
   const pathname = usePathname();
-  const [identity, setIdentity] = useState<IdentityType>({
+  const [identity, setIdentity] = useState<IdentityT>({
     userName: "",
     userAvatarSeed: ""
   });
@@ -157,14 +83,4 @@ function Sidebar({ isOpen }: SidebarProps) {
       </div>
     </aside>
   );
-}
-
-// Dashboard Main Content
-
-interface MainProps {
-  children: React.ReactNode;
-}
-
-function Main({ children }: MainProps) {
-  return <main className="dashboard-main py-[15px]">{children}</main>;
 }
