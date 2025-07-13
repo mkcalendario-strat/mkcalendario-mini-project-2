@@ -1,6 +1,6 @@
 "use client";
 
-import { initializeIdentity } from "@/actions/identity/identity";
+import { initializeIdentity } from "@/actions/identity/initialize-identity";
 import useIsOnMobile from "@/hooks/useIsOnMobile";
 import { useCallback, useEffect, useState } from "react";
 import { Main } from "./Main";
