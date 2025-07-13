@@ -61,28 +61,26 @@ export default function Sidebar({ isOpen }: SidebarProps) {
           );
         })}
 
-        <div className="flex justify-between gap-2 bg-neutral-100 p-[10px]">
+        <div
+          onClick={toggleModal}
+          className="cursor-pointer bg-neutral-100 p-[10px] duration-300 hover:bg-neutral-200">
           <Identity
             reverse
-            imageSize="w-[35px]"
+            hideOn={["md"]}
+            imageSize="w-[40px]"
             description="Identified as"
             userName={identity.userName}
             userAvatarSeed={identity.userAvatarSeed}
           />
-          <button
-            onClick={toggleModal}
-            className="cursor-pointer">
-            <i className="fas fa-grid-2 text-neutral-900" />
-          </button>
-
-          {isModalVisible && (
-            <ChangeIdentityModal
-              toggle={toggleModal}
-              visible={isModalVisible}
-              refetch={fetchIdentity}
-            />
-          )}
         </div>
+
+        {isModalVisible && (
+          <ChangeIdentityModal
+            toggle={toggleModal}
+            visible={isModalVisible}
+            refetch={fetchIdentity}
+          />
+        )}
       </div>
     </aside>
   );
