@@ -1,53 +1,20 @@
-"use client";
-
 import { addComment } from "@/actions/interactions/interactions";
 import useUserData from "@/hooks/useUserData";
 import { Blog } from "@/types/blogs";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
-import { Fragment, useState } from "react";
-import Avatar from "./Avatar";
-import Button from "./Button";
-import Input from "./Input";
-import Modal from "./Modal";
-import Textarea from "./Textarea";
-
-interface CommentButtonProps extends Pick<Blog, "id"> {
-  className?: string;
-}
-
-export default function CommentButton({ id, className }: CommentButtonProps) {
-  const [isVisible, setIsModalVisible] = useState(false);
-
-  const toggleModal = () => setIsModalVisible((prev) => !prev);
-
-  const baseClasses = "bg-blue-500 text-neutral-100";
-  const classes = `${baseClasses} ${className}`.trim();
-
-  return (
-    <Fragment>
-      <Button
-        className={classes}
-        onClick={toggleModal}>
-        <i className="far fa-message" />
-        Comment
-      </Button>
-
-      <AddCommentModal
-        id={id}
-        visible={isVisible}
-        toggle={toggleModal}
-      />
-    </Fragment>
-  );
-}
+import { useState } from "react";
+import Avatar from "../ui/Avatar";
+import Button from "../ui/Button";
+import Input from "../ui/Input";
+import Modal from "../ui/Modal";
+import Textarea from "../ui/Textarea";
 
 interface AddCommentModalProps {
   visible: boolean;
   toggle: () => void;
   id: Blog["id"];
 }
-
-function AddCommentModal({ id, visible, toggle }: AddCommentModalProps) {
+export function AddCommentModal({ id, visible, toggle }: AddCommentModalProps) {
   const { userName, userAvatarSeed } = useUserData();
   const [formData, setFormData] = useState({ comment: "", desiredKey: "" });
 

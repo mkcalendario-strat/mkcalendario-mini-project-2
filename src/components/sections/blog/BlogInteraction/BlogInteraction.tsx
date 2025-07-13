@@ -1,6 +1,6 @@
 import { getIdentity } from "@/actions/utils/identity";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
-import CommentButton from "@/components/ui/CommentButton";
+import CommentButton from "@/components/sections/blog/BlogInteraction/CommentButton";
 import HeartButton from "@/components/ui/HeartButton";
 import Identity from "@/components/ui/Identity";
 import { Blog } from "@/types/blogs";

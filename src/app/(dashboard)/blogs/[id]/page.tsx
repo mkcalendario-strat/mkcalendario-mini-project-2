@@ -2,7 +2,7 @@ import { fetchBlog } from "@/actions/blogs/blogs";
 import BlogCommentBox from "@/components/sections/blog/BlogCommentBox";
 import BlogContent from "@/components/sections/blog/BlogContent";
 import BlogDetails from "@/components/sections/blog/BlogDetails";
-import BlogInteraction from "@/components/sections/blog/BlogInteraction";
+import BlogInteraction from "@/components/sections/blog/BlogInteraction/BlogInteraction";
 import { showErrorToast } from "@/utils/toast";
 import { redirect, RedirectType } from "next/navigation";
 import { Fragment } from "react";
