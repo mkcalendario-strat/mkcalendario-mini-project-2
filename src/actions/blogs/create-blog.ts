@@ -1,18 +1,25 @@
 "use server";
 
+import { blogs } from "#/drizzle/schema";
+import { db } from "@/actions/db";
+import { getIdentity } from "@/actions/utils/identity";
+import { Blog } from "@/types/blogs";
 import { uploadBlogImage } from "@/utils/files";
 import { revalidatePath } from "next/cache";
 import { v4 as uuidv4 } from "uuid";
-import { blogs } from "../../drizzle/schema";
-import { db } from "./db";
-import { getIdentity } from "./utils/identity";
 
-export async function createBlog(formData: FormData) {
-  const title = formData.get("title")?.toString().trim();
-  const description = formData.get("description")?.toString().trim();
-  const content = formData.get("content")?.toString().trim();
-  const image = formData.get("image") as File | null;
-  const key = formData.get("key")?.toString().trim();
+interface CreateBlog
+  extends Pick<Blog, "title" | "description" | "content" | "key"> {
+  image: File | null;
+}
+
+export default async function createBlog({
+  key,
+  image,
+  title,
+  content,
+  description
+}: CreateBlog) {
   const newImageName = `${uuidv4()}.jpg`;
 
   const { userName, userAvatarSeed } = await getIdentity();

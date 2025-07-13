@@ -7,7 +7,7 @@ interface AvatarProviderProps {
   seed: string;
 }
 
-export default function AvatarProvider({ size, seed }: AvatarProviderProps) {
+export default function Avatar({ size, seed }: AvatarProviderProps) {
   const config = genConfig(seed);
 
   return (

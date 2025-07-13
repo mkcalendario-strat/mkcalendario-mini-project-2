@@ -1,5 +1,7 @@
 "use server";
 
+import { IDENTITY } from "@/actions/identity/constants";
+import { Identity } from "@/types/identity";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import {
@@ -9,7 +11,6 @@ import {
   uniqueNamesGenerator
 } from "unique-names-generator";
 import { v4 as uuidv4 } from "uuid";
-import { IDENTITY } from "../identity/utils";
 
 export async function getIdentity() {
   const cookieStore = await cookies();

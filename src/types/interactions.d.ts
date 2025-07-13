@@ -1,11 +1,9 @@
-interface UserComment extends User {
-  id: string;
-  key: string;
-  text: string;
-  timestamp: string;
-}
+import { comments } from "#/drizzle/schema";
+import { InferSelectModel } from "drizzle-orm";
 
-type CommentsData = Pick<
+export type UserComment = InferSelectModel<typeof comments>;
+
+export type CommentsData = Pick<
   UserComment,
   "id" | "text" | "timestamp" | "userAvatarSeed" | "userName"
 >;

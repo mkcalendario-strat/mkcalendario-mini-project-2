@@ -1,4 +1,6 @@
-export function formatTime(timestamp: string) {
+import { Blog } from "@/types/blogs";
+
+export function formatTime(timestamp: Blog["timestamp"]) {
   const date = new Date(timestamp);
 
   const formatter = new Intl.DateTimeFormat("en-US", {

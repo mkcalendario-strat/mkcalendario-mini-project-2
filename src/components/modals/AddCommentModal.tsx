@@ -1,53 +1,19 @@
-"use client";
-
-import { addComment } from "@/actions/interactions";
+import addComment from "@/actions/interactions/add-comment";
+import Avatar from "@/components/ui/Avatar";
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import Modal from "@/components/ui/Modal";
+import Textarea from "@/components/ui/Textarea";
 import useUserData from "@/hooks/useUserData";
+import { Blog } from "@/types/blogs";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
-import { Fragment, useState } from "react";
-import AvatarProvider from "../providers/AvatarProvider";
-import Button from "./Button";
-import Input from "./Input";
-import Modal from "./Modal";
-import Textarea from "./Textarea";
-
-interface CommentButtonProps extends Pick<Blog, "id"> {
-  className?: string;
-}
-
-export default function CommentButton({ id, className }: CommentButtonProps) {
-  void id;
-  const [isVisible, setIsModalVisible] = useState(false);
-
-  const toggleModal = () => setIsModalVisible((prev) => !prev);
-
-  const baseClasses = "bg-blue-500 text-neutral-100";
-  const classes = `${baseClasses} ${className}`.trim();
-
-  return (
-    <Fragment>
-      <Button
-        className={classes}
-        onClick={toggleModal}>
-        <i className="far fa-message" />
-        Comment
-      </Button>
-
-      <AddCommentModal
-        id={id}
-        visible={isVisible}
-        toggle={toggleModal}
-      />
-    </Fragment>
-  );
-}
+import { useState } from "react";
 
 interface AddCommentModalProps {
-  visible: boolean;
   toggle: () => void;
   id: Blog["id"];
 }
-
-function AddCommentModal({ id, visible, toggle }: AddCommentModalProps) {
+export function AddCommentModal({ id, toggle }: AddCommentModalProps) {
   const { userName, userAvatarSeed } = useUserData();
   const [formData, setFormData] = useState({ comment: "", desiredKey: "" });
 
@@ -74,12 +40,11 @@ function AddCommentModal({ id, visible, toggle }: AddCommentModalProps) {
 
   return (
     <Modal
-      visible={visible}
       toggle={toggle}
       title="Add Comment"
       className="flex flex-col gap-2">
       <div className="flex flex-wrap items-center gap-3">
-        <AvatarProvider
+        <Avatar
           seed={userAvatarSeed}
           size="w-[35px]"
         />
@@ -103,8 +68,8 @@ function AddCommentModal({ id, visible, toggle }: AddCommentModalProps) {
       />
       <Button
         onClick={handleSubmitCommentClick}
-        className="self-baseline bg-neutral-900 text-neutral-100">
-        Submit Comment
+        className="self-baseline bg-sky-700 text-neutral-100">
+        Comment
       </Button>
     </Modal>
   );

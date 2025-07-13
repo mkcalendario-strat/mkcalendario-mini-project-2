@@ -5,7 +5,7 @@ import {
   generateAvatarSeed,
   generateUserName,
   hasIdentity
-} from "../utils/identity";
+} from "@/actions/utils/identity";
 
 export async function initializeIdentity() {
   if (await hasIdentity()) return;

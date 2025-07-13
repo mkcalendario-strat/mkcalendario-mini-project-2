@@ -1,8 +1,9 @@
 import { DashboardContent } from "@/components/layouts/DashboardContent";
-import Identity from "@/components/providers/Identity";
+import Identity from "@/components/ui/Identity";
+import { Blog } from "@/types/blogs";
 import Image from "next/image";
 
-type BlogDetails = Omit<Blog, "key" | "hearts" | "comments">;
+type BlogDetailsProps = Omit<Blog, "key" | "hearts" | "comments">;
 
 export default function BlogDetails({
   id,
@@ -12,7 +13,7 @@ export default function BlogDetails({
   timestamp,
   userName,
   userAvatarSeed
-}: BlogDetails) {
+}: BlogDetailsProps) {
   return (
     <DashboardContent
       tight

@@ -5,16 +5,12 @@ import {
   generateAvatarSeed,
   getIdentity
 } from "@/actions/utils/identity";
-import { useCallback, useEffect, useState } from "react";
-import AvatarProvider from "../providers/AvatarProvider";
-import Button from "../ui/Button";
-import Input from "../ui/Input";
-import Modal from "../ui/Modal";
-
-interface Identity {
-  userName: string;
-  userAvatarSeed: string;
-}
+import Avatar from "@/components/ui/Avatar";
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import Modal from "@/components/ui/Modal";
+import { Identity } from "@/types/identity";
+import { Fragment, useCallback, useEffect, useState } from "react";
 
 interface ChangeIdentityModalProps {
   visible: boolean;
@@ -59,13 +55,12 @@ export default function ChangeIdentityModal({
   return (
     <Modal
       toggle={toggle}
-      visible={visible}
       title="Create Identity"
       className="flex flex-col gap-5">
       {identity && (
-        <>
+        <Fragment>
           <div className="flex flex-col items-center justify-center gap-2">
-            <AvatarProvider
+            <Avatar
               size="w-[150px]"
               seed={identity.userAvatarSeed}
             />
@@ -90,7 +85,7 @@ export default function ChangeIdentityModal({
             className="bg-neutral-900 text-neutral-100">
             Create Identity
           </Button>
-        </>
+        </Fragment>
       )}
     </Modal>
   );

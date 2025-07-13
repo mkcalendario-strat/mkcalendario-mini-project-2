@@ -1,8 +1,9 @@
 "use client";
 
+import { Blog } from "@/types/blogs";
 import Image from "next/image";
 import Link from "next/link";
-import Identity from "../providers/Identity";
+import Identity from "./Identity";
 
 interface BlogCardProps extends Omit<Blog, "key" | "comments" | "hearts"> {
   className?: string;
@@ -47,10 +48,7 @@ export default function BlogCard({
   );
 }
 
-interface BlogImageProps {
-  image: string;
-  title: string;
-}
+type BlogImageProps = Pick<Blog, "image" | "title">;
 
 function BlogImage({ image, title }: BlogImageProps) {
   return (
@@ -66,10 +64,7 @@ function BlogImage({ image, title }: BlogImageProps) {
   );
 }
 
-interface BlogDetailsProps {
-  title: string;
-  description: string;
-}
+type BlogDetailsProps = Pick<Blog, "title" | "description">;
 
 function BlogDetails({ title, description }: BlogDetailsProps) {
   return (

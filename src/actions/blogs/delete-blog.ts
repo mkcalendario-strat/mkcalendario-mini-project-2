@@ -1,11 +1,14 @@
 "use server";
 
+import { blogs } from "#/drizzle/schema";
+import { db } from "@/actions/db";
+import { Blog } from "@/types/blogs";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { blogs } from "../../drizzle/schema";
-import { db } from "./db";
 
-export default async function deleteBlog(id: string, key: string) {
+type DeleteBlog = Pick<Blog, "id" | "key">;
+
+export default async function deleteBlog({ id, key }: DeleteBlog) {
   if (!id || !key) {
     return { success: false, message: "All fields are required." };
   }
@@ -13,7 +16,7 @@ export default async function deleteBlog(id: string, key: string) {
   try {
     const deleted = await db
       .delete(blogs)
-      .where(and(eq(blogs.id, parseInt(id)), eq(blogs.key, key)))
+      .where(and(eq(blogs.id, id), eq(blogs.key, key)))
       .returning({ title: blogs.title });
 
     if (deleted.length === 0) {

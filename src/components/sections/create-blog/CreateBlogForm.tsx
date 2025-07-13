@@ -1,6 +1,6 @@
 "use client";
 
-import { createBlog } from "@/actions/create-blog";
+import createBlog from "@/actions/blogs/create-blog";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
@@ -32,8 +32,7 @@ export default function CreateBlogForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(formRef.current as HTMLFormElement);
-    const { success, message, blogId } = await createBlog(formData);
+    const { success, message, blogId } = await createBlog(blogData);
 
     if (!success) return showErrorToast(message);
 

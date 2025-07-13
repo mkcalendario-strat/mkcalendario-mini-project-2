@@ -1,10 +1,11 @@
 "use client";
 
-import getHearts from "@/actions/get-hearts";
-import sendHeart from "@/actions/send-heart";
+import getHearts from "@/actions/interactions/get-hearts";
+import sendHeart from "@/actions/interactions/send-heart";
+import Button from "@/components/ui/Button";
+import { Blog } from "@/types/blogs";
 import { showErrorToast } from "@/utils/toast";
 import { useCallback, useEffect, useState } from "react";
-import Button from "./Button";
 
 interface HeartButtonProps extends Pick<Blog, "id"> {
   className?: string;
@@ -39,7 +40,7 @@ export default function HeartButton({ id, className }: HeartButtonProps) {
     fetchHeartCount();
   }, [fetchHeartCount]);
 
-  const baseClasses = "bg-violet-500 text-neutral-100";
+  const baseClasses = "bg-violet-700 text-neutral-100";
   const classes = `${baseClasses} ${className}`.trim();
 
   return (

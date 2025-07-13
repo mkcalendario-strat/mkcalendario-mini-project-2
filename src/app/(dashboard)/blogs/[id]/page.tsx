@@ -1,8 +1,8 @@
-import fetchBlog from "@/actions/fetch-blog";
+import getBlog from "@/actions/blogs/get-blog";
 import BlogCommentBox from "@/components/sections/blog/BlogCommentBox";
 import BlogContent from "@/components/sections/blog/BlogContent";
 import BlogDetails from "@/components/sections/blog/BlogDetails";
-import BlogInteraction from "@/components/sections/blog/BlogInteraction";
+import BlogInteraction from "@/components/sections/blog/BlogInteraction/BlogInteraction";
 import { showErrorToast } from "@/utils/toast";
 import { redirect, RedirectType } from "next/navigation";
 import { Fragment } from "react";
@@ -13,7 +13,7 @@ type GenerateMetadataProps = {
 
 export async function generateMetadata({ params }: GenerateMetadataProps) {
   const { id } = await params;
-  const { data } = await fetchBlog(id);
+  const { data } = await getBlog(parseInt(id));
 
   return {
     title: data?.title,
@@ -27,7 +27,7 @@ interface BlogProps {
 
 export default async function Blog({ params }: BlogProps) {
   const { id } = await params;
-  const { success, message, data } = await fetchBlog(id);
+  const { success, message, data } = await getBlog(parseInt(id));
 
   if (!success) {
     showErrorToast(message);

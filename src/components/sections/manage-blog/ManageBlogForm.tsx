@@ -1,7 +1,7 @@
 "use client";
 
-import deleteBlog from "@/actions/delete-blog";
-import checkBlogKey from "@/actions/edit-blog";
+import challengeBlogKey from "@/actions/blogs/challenge-blog-key";
+import deleteBlog from "@/actions/blogs/delete-blog";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
@@ -17,7 +17,7 @@ export default function ManageBlogForm() {
 
   const handleDelete = async () => {
     const { id, key } = formData;
-    const { success, message } = await deleteBlog(id, key);
+    const { success, message } = await deleteBlog({ id: parseInt(id), key });
 
     if (!success) {
       showErrorToast(message);
@@ -32,7 +32,10 @@ export default function ManageBlogForm() {
     const { id, key } = formData;
 
     // Challenge control key
-    const { success, message } = await checkBlogKey(id, key);
+    const { success, message } = await challengeBlogKey({
+      id: parseInt(id),
+      key
+    });
 
     if (!success) {
       return showErrorToast(message);

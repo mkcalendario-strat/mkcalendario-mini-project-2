@@ -11,8 +11,8 @@ export default async function EditBlog({ params }: EditBlogProps) {
   return (
     <Fragment>
       <EditBlogForm
-        id={id}
-        blogKey={key}
+        id={parseInt(id)}
+        originalKey={key}
       />
     </Fragment>
   );
