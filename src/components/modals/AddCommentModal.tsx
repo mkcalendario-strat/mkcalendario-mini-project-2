@@ -10,11 +10,10 @@ import Modal from "../ui/Modal";
 import Textarea from "../ui/Textarea";
 
 interface AddCommentModalProps {
-  visible: boolean;
   toggle: () => void;
   id: Blog["id"];
 }
-export function AddCommentModal({ id, visible, toggle }: AddCommentModalProps) {
+export function AddCommentModal({ id, toggle }: AddCommentModalProps) {
   const { userName, userAvatarSeed } = useUserData();
   const [formData, setFormData] = useState({ comment: "", desiredKey: "" });
 
@@ -41,7 +40,6 @@ export function AddCommentModal({ id, visible, toggle }: AddCommentModalProps) {
 
   return (
     <Modal
-      visible={visible}
       toggle={toggle}
       title="Add Comment"
       className="flex flex-col gap-2">

@@ -55,7 +55,6 @@ export default function ChangeIdentityModal({
   return (
     <Modal
       toggle={toggle}
-      visible={visible}
       title="Create Identity"
       className="flex flex-col gap-5">
       {identity && (

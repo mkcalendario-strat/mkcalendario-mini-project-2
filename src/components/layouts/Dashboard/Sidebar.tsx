@@ -74,11 +74,14 @@ export default function Sidebar({ isOpen }: SidebarProps) {
             className="cursor-pointer">
             <i className="fas fa-grid-2 text-neutral-900" />
           </button>
-          <ChangeIdentityModal
-            toggle={toggleModal}
-            visible={isModalVisible}
-            refetch={fetchIdentity}
-          />
+
+          {isModalVisible && (
+            <ChangeIdentityModal
+              toggle={toggleModal}
+              visible={isModalVisible}
+              refetch={fetchIdentity}
+            />
+          )}
         </div>
       </div>
     </aside>

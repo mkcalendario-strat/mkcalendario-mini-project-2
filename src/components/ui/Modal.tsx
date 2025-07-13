@@ -2,7 +2,6 @@
 
 interface ModalProps {
   title: string;
-  visible: boolean;
   className?: string;
   toggle: () => void;
   children: React.ReactNode;
@@ -11,12 +10,9 @@ interface ModalProps {
 export default function Modal({
   title,
   toggle,
-  visible,
   children,
   className
 }: ModalProps) {
-  if (!visible) return null;
-
   return (
     <div className="fixed top-0 left-0 z-[1] h-full w-full bg-neutral-900/50">
       <button

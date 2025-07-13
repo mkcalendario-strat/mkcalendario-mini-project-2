@@ -10,13 +10,11 @@ import Modal from "../ui/Modal";
 import Textarea from "../ui/Textarea";
 
 interface EditCommentModalProps extends Pick<UserComment, "id"> {
-  visible: boolean;
   toggle: () => void;
 }
 
 export default function EditCommentModal({
   id,
-  visible,
   toggle
 }: EditCommentModalProps) {
   const [formData, setFormData] = useState({ key: "", editedComment: "" });
@@ -28,8 +26,8 @@ export default function EditCommentModal({
   }, [id]);
 
   useEffect(() => {
-    if (visible) fetchCommentData();
-  }, [visible, fetchCommentData]);
+    fetchCommentData();
+  }, [fetchCommentData]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -53,9 +51,8 @@ export default function EditCommentModal({
 
   return (
     <Modal
-      title="Edit Comment"
-      visible={visible}
       toggle={toggle}
+      title="Edit Comment"
       className="flex flex-col gap-2">
       <Textarea
         id="edited-comment"
@@ -74,9 +71,9 @@ export default function EditCommentModal({
       />
       <Button
         onClick={handleEdit}
-        className="self-baseline bg-green-500 text-neutral-100">
-        <i className="far fa-edit" />
-        Edit Comment
+        className="self-baseline bg-green-900 text-neutral-100">
+        <i className="far fa-check" />
+        Save Edit
       </Button>
     </Modal>
   );

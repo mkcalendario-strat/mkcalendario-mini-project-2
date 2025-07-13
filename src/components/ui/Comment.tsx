@@ -40,30 +40,32 @@ export default function Comment({
         <div className="absolute top-0 right-0 flex">
           <button
             onClick={() => setShowEditModal(true)}
-            className="cursor-pointer bg-green-500/50 p-[3px] leading-0">
-            <i className="far fa-fw fa-edit text-xs text-green-900" />
+            className="cursor-pointer bg-green-700 p-[3px] leading-0">
+            <i className="far fa-fw fa-edit text-xs text-neutral-100" />
           </button>
           <button
             onClick={() => setShowDeleteModal(true)}
-            className="cursor-pointer bg-red-500/50 p-[3px] leading-0">
-            <i className="far fa-fw fa-trash text-xs text-red-900" />
+            className="cursor-pointer bg-red-700 p-[3px] leading-0">
+            <i className="far fa-fw fa-trash text-xs text-neutral-100" />
           </button>
         </div>
 
         <p className="text-sm">{text}</p>
       </div>
 
-      <EditCommentModal
-        id={id}
-        visible={showEditModal}
-        toggle={() => setShowEditModal(false)}
-      />
+      {showEditModal && (
+        <EditCommentModal
+          id={id}
+          toggle={() => setShowEditModal(false)}
+        />
+      )}
 
-      <DeleteCommentModal
-        id={id}
-        visible={showDeleteModal}
-        toggle={() => setShowDeleteModal(false)}
-      />
+      {showDeleteModal && (
+        <DeleteCommentModal
+          id={id}
+          toggle={() => setShowDeleteModal(false)}
+        />
+      )}
     </Fragment>
   );
 }

@@ -9,13 +9,11 @@ import Input from "../ui/Input";
 import Modal from "../ui/Modal";
 
 interface DeleteCommentModalProps extends Pick<UserComment, "id"> {
-  visible: boolean;
   toggle: () => void;
 }
 
 export default function DeleteCommentModal({
   id,
-  visible,
   toggle
 }: DeleteCommentModalProps) {
   const [key, setKey] = useState("");
@@ -23,16 +21,15 @@ export default function DeleteCommentModal({
   const handleDelete = async () => {
     const { success, message } = await deleteComment(id, key);
     if (!success) return showErrorToast(message);
+
     showSuccessToast(message);
     toggle();
-    setKey("");
   };
 
   return (
     <Modal
-      title="Delete Comment"
-      visible={visible}
       toggle={toggle}
+      title="Delete Comment"
       className="flex flex-col gap-2">
       <Input
         id="comment-key"
@@ -43,7 +40,7 @@ export default function DeleteCommentModal({
       />
       <Button
         onClick={handleDelete}
-        className="self-baseline bg-red-500 text-neutral-100">
+        className="self-baseline bg-red-900 text-neutral-100">
         <i className="far fa-trash" />
         Delete Comment
       </Button>

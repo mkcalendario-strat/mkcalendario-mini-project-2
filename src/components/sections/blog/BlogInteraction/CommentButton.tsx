@@ -10,7 +10,7 @@ interface CommentButtonProps extends Pick<Blog, "id"> {
 }
 
 export default function CommentButton({ id, className }: CommentButtonProps) {
-  const [isVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const toggleModal = () => setIsModalVisible((prev) => !prev);
 
@@ -26,11 +26,12 @@ export default function CommentButton({ id, className }: CommentButtonProps) {
         Comment
       </Button>
 
-      <AddCommentModal
-        id={id}
-        visible={isVisible}
-        toggle={toggleModal}
-      />
+      {isModalVisible && (
+        <AddCommentModal
+          id={id}
+          toggle={toggleModal}
+        />
+      )}
     </Fragment>
   );
 }
