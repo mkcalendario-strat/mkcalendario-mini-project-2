@@ -5,9 +5,9 @@ import {
   generateAvatarSeed,
   getIdentity
 } from "@/actions/utils/identity";
+import Avatar from "@/components/ui/Avatar";
 import { Identity } from "@/types/identity";
 import { useCallback, useEffect, useState } from "react";
-import AvatarProvider from "../providers/AvatarProvider";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import Modal from "../ui/Modal";
@@ -61,7 +61,7 @@ export default function ChangeIdentityModal({
       {identity && (
         <>
           <div className="flex flex-col items-center justify-center gap-2">
-            <AvatarProvider
+            <Avatar
               size="w-[150px]"
               seed={identity.userAvatarSeed}
             />

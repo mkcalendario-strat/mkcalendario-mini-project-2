@@ -5,7 +5,7 @@ import useUserData from "@/hooks/useUserData";
 import { Blog } from "@/types/blogs";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { Fragment, useState } from "react";
-import AvatarProvider from "../providers/AvatarProvider";
+import Avatar from "./Avatar";
 import Button from "./Button";
 import Input from "./Input";
 import Modal from "./Modal";
@@ -79,7 +79,7 @@ function AddCommentModal({ id, visible, toggle }: AddCommentModalProps) {
       title="Add Comment"
       className="flex flex-col gap-2">
       <div className="flex flex-wrap items-center gap-3">
-        <AvatarProvider
+        <Avatar
           seed={userAvatarSeed}
           size="w-[35px]"
         />

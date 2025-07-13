@@ -8,7 +8,7 @@ import {
 import { UserComment } from "@/types/interactions";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { Fragment, useCallback, useEffect, useState } from "react";
-import AvatarProvider from "../providers/AvatarProvider";
+import Avatar from "./Avatar";
 import Button from "./Button";
 import Input from "./Input";
 import Modal from "./Modal";
@@ -29,7 +29,7 @@ export default function Comment({
   return (
     <div className="relative flex flex-col gap-3 bg-white p-[20px]">
       <div className="flex flex-wrap gap-2">
-        <AvatarProvider
+        <Avatar
           seed={userAvatarSeed}
           size="w-[40px]"
         />

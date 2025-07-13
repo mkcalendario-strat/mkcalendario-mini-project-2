@@ -1,5 +1,5 @@
 import { Identity as IdentityType } from "@/types/identity";
-import AvatarProvider from "./AvatarProvider";
+import Avatar from "./Avatar";
 
 interface IdentityProps extends IdentityType {
   reverse?: boolean;
@@ -17,7 +17,7 @@ export default function Identity({
   return (
     <div className="flex flex-wrap items-center gap-3">
       <div className="aspect-square">
-        <AvatarProvider
+        <Avatar
           size={imageSize}
           seed={userAvatarSeed}
         />

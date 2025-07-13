@@ -1,5 +1,5 @@
 import { DashboardContent } from "@/components/layouts/DashboardContent";
-import Identity from "@/components/providers/Identity";
+import Identity from "@/components/ui/Identity";
 import { Blog } from "@/types/blogs";
 import Image from "next/image";
 

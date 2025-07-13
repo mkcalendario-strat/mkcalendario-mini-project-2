@@ -3,7 +3,7 @@
 import { Blog } from "@/types/blogs";
 import Image from "next/image";
 import Link from "next/link";
-import Identity from "../providers/Identity";
+import Identity from "./Identity";
 
 interface BlogCardProps extends Omit<Blog, "key" | "comments" | "hearts"> {
   className?: string;

@@ -1,8 +1,8 @@
 import { getIdentity } from "@/actions/utils/identity";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
-import Identity from "@/components/providers/Identity";
 import CommentButton from "@/components/ui/CommentButton";
 import HeartButton from "@/components/ui/HeartButton";
+import Identity from "@/components/ui/Identity";
 import { Blog } from "@/types/blogs";
 
 type BlogInteractionProps = Pick<Blog, "id">;
