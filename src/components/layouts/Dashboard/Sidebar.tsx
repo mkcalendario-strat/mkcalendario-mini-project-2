@@ -1,7 +1,7 @@
 "use client";
 
 import { getIdentity } from "@/actions/utils/identity";
-import ChangeIdentityModal from "@/components/misc/ChangeIdentityButton";
+import ChangeIdentityModal from "@/components/modals/ChangeIdentityModal";
 import Identity from "@/components/ui/Identity";
 import { Identity as IdentityT } from "@/types/identity";
 import Link from "next/link";

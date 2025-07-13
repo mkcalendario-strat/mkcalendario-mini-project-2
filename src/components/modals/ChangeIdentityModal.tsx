@@ -7,7 +7,7 @@ import {
 } from "@/actions/utils/identity";
 import Avatar from "@/components/ui/Avatar";
 import { Identity } from "@/types/identity";
-import { useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import Modal from "../ui/Modal";
@@ -59,7 +59,7 @@ export default function ChangeIdentityModal({
       title="Create Identity"
       className="flex flex-col gap-5">
       {identity && (
-        <>
+        <Fragment>
           <div className="flex flex-col items-center justify-center gap-2">
             <Avatar
               size="w-[150px]"
@@ -86,7 +86,7 @@ export default function ChangeIdentityModal({
             className="bg-neutral-900 text-neutral-100">
             Create Identity
           </Button>
-        </>
+        </Fragment>
       )}
     </Modal>
   );
