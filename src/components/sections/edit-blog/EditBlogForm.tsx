@@ -1,6 +1,7 @@
 "use client";
 
-import { editBlog, fetchBlog } from "@/actions/blogs/blogs";
+import { editBlog } from "@/actions/blogs/edit-blog";
+import { getBlog } from "@/actions/blogs/get-blog";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
@@ -36,7 +37,7 @@ export default function EditBlogForm({ id, originalKey }: EditBlogFormProps) {
   };
 
   const fetchBlogData = useCallback(async () => {
-    const { success, message, data } = await fetchBlog(id);
+    const { success, message, data } = await getBlog(id);
 
     if (!success || !data) {
       return showErrorToast(message);

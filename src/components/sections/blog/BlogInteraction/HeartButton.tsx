@@ -1,6 +1,6 @@
 "use client";
 
-import { getHearts } from "@/actions/blogs/blogs";
+import { getHearts } from "@/actions/blogs/get-blogs";
 import sendHeart from "@/actions/interactions/interactions";
 import Button from "@/components/ui/Button";
 import { Blog } from "@/types/blogs";

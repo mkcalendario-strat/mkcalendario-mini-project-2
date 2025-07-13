@@ -1,10 +1,10 @@
-import { fetchBlogs } from "@/actions/blogs/blogs";
+import { getBlogs } from "@/actions/blogs/get-blogs";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import BlogCard from "@/components/ui/BlogCard";
 import { redirect, RedirectType } from "next/navigation";
 
 export default async function BlogsList() {
-  const { success, blogs } = await fetchBlogs();
+  const { success, blogs } = await getBlogs();
 
   if (!success) {
     return null;

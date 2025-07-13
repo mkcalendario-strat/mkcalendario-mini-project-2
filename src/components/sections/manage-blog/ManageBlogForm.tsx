@@ -1,6 +1,7 @@
 "use client";
 
-import { checkBlogKey, deleteBlog } from "@/actions/blogs/blogs";
+import { challengeBlogKey } from "@/actions/blogs/challenge-blog-key";
+import { deleteBlog } from "@/actions/blogs/delete-blog";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
@@ -31,7 +32,10 @@ export default function ManageBlogForm() {
     const { id, key } = formData;
 
     // Challenge control key
-    const { success, message } = await checkBlogKey({ id: parseInt(id), key });
+    const { success, message } = await challengeBlogKey({
+      id: parseInt(id),
+      key
+    });
 
     if (!success) {
       return showErrorToast(message);

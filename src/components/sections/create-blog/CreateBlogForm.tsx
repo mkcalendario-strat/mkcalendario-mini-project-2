@@ -1,6 +1,6 @@
 "use client";
 
-import { createBlog } from "@/actions/blogs/blogs";
+import { createBlog } from "@/actions/blogs/create-blog";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
