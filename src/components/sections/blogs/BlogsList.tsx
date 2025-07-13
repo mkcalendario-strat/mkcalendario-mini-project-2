@@ -1,6 +1,7 @@
 import getBlogs from "@/actions/blogs/get-blogs";
 import { DashboardContent } from "@/components/layouts/DashboardContent";
 import BlogCard from "@/components/ui/BlogCard";
+import EmptySection from "@/components/ui/EmptySection";
 import { redirect, RedirectType } from "next/navigation";
 
 export default async function BlogsList() {
@@ -19,6 +20,14 @@ export default async function BlogsList() {
       title="Sensible Reads"
       description="List of blogs that make sense."
       className="flex flex-col flex-wrap gap-[10px] md:flex-row">
+      {!blogs.length && (
+        <EmptySection
+          text="Oh, Spiders!"
+          description="No blogs post yet. Create blog now."
+          graphicsSrc="/assets/images/graphics/empty-blogs.png"
+        />
+      )}
+
       {blogs.map((blog) => (
         <BlogCard
           {...blog}
