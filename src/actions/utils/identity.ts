@@ -1,6 +1,6 @@
 "use server";
 
-import { IDENTITY } from "@/actions/identity/utils";
+import { IDENTITY } from "@/actions/identity/constants";
 import { Identity } from "@/types/identity";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";

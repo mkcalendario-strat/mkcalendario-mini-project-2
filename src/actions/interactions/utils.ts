@@ -1,3 +1,5 @@
+"use server";
+
 import { comments } from "#/drizzle/schema";
 import { db } from "@/actions/db";
 import { UserComment } from "@/types/interactions";

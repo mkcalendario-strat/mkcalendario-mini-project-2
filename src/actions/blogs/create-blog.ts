@@ -1,3 +1,5 @@
+"use server";
+
 import { blogs } from "#/drizzle/schema";
 import { db } from "@/actions/db";
 import { getIdentity } from "@/actions/utils/identity";
