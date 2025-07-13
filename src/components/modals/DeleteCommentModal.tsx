@@ -40,7 +40,7 @@ export default function DeleteCommentModal({
       />
       <Button
         onClick={handleDelete}
-        className="self-baseline bg-red-900 text-neutral-100">
+        className="self-baseline bg-red-700 text-neutral-100">
         <i className="far fa-trash" />
         Delete Comment
       </Button>

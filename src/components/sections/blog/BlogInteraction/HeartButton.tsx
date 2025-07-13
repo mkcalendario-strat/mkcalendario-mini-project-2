@@ -40,7 +40,7 @@ export default function HeartButton({ id, className }: HeartButtonProps) {
     fetchHeartCount();
   }, [fetchHeartCount]);
 
-  const baseClasses = "bg-violet-500 text-neutral-100";
+  const baseClasses = "bg-violet-700 text-neutral-100";
   const classes = `${baseClasses} ${className}`.trim();
 
   return (

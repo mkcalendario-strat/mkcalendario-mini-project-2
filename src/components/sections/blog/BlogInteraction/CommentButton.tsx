@@ -14,7 +14,7 @@ export default function CommentButton({ id, className }: CommentButtonProps) {
 
   const toggleModal = () => setIsModalVisible((prev) => !prev);
 
-  const baseClasses = "bg-blue-500 text-neutral-100";
+  const baseClasses = "bg-sky-700 text-neutral-100";
   const classes = `${baseClasses} ${className}`.trim();
 
   return (

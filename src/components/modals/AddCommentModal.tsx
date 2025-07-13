@@ -68,8 +68,8 @@ export function AddCommentModal({ id, toggle }: AddCommentModalProps) {
       />
       <Button
         onClick={handleSubmitCommentClick}
-        className="self-baseline bg-neutral-900 text-neutral-100">
-        Submit Comment
+        className="self-baseline bg-sky-700 text-neutral-100">
+        Comment
       </Button>
     </Modal>
   );

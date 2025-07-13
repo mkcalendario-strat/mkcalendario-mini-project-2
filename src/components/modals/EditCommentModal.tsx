@@ -71,7 +71,7 @@ export default function EditCommentModal({
       />
       <Button
         onClick={handleEdit}
-        className="self-baseline bg-green-900 text-neutral-100">
+        className="self-baseline bg-green-700 text-neutral-100">
         <i className="far fa-check" />
         Save Edit
       </Button>
