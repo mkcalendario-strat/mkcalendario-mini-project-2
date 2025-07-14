@@ -71,5 +71,5 @@ NEXT_PUBLIC_BLOB_PATHNAME=""
 
 ## 🙌 Credits
 
-- **Developer**: [@mkcalendario-strat](https://github.com/mkcalendario-strat) / [@markcalendario](https://github.com/markcalendario)
+- **Developer**: Mark Kenneth S. Calendario ([@mkcalendario-strat](https://github.com/mkcalendario-strat) / [@markcalendario](https://github.com/markcalendario))
 - **Built at**: [Stratpoint Technologies](https://www.stratpoint.com)
