@@ -26,7 +26,7 @@
 
 ## 🛡️ Blog Key System
 
-When a blog is posted, a **unique blog key** is generated and shown only once. This key allows the user to:
+When posting a blog, users can create their **unique blog key**. This key allows the user to:
 
 - Edit their post.
 - Delete their post.
