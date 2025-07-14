@@ -9,7 +9,7 @@ export default function Hero() {
           <div className="flex flex-col items-center gap-[50px] py-[50px] md:flex-row">
             <div className="md:w-[55%]">
               <h1 className="mb-3 text-5xl font-bold tracking-tighter lg:text-7xl">
-                Stories and ideas larger than any medium.
+                Space for your ideas larger than any medium.
               </h1>
               <p className="mb-5 text-xl">
                 Your freedom in posting and reading ideas. Do it anonymously.
