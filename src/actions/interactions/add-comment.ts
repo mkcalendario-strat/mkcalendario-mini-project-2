@@ -19,6 +19,9 @@ export default async function addComment({
 }: AddCommentProps) {
   const { userName, userAvatarSeed } = await getIdentity();
 
+  if (!text || !desiredKey)
+    return { success: false, message: "All fields are required." };
+
   try {
     await db.insert(comments).values({
       text,
