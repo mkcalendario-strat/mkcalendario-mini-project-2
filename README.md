@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Large
 
-## Getting Started
+> **Space for your ideas larger than any medium.**
 
-First, run the development server:
+**Large** is a minimalist, anonymous-first blogging platform built with **Next.js**, where users can freely express their thoughts, post blogs, and interact without creating accounts.
+
+## ✨ Features
+
+- 👤 **Create Your Own Anonymous Identity**  
+  Users can optionally generate a persistent anonymous identity to use across posts and comments.
+
+- 📝 **Post Blogs Anonymously**  
+  Anyone can post without signing in. A unique blog key is generated to allow future editing or deletion.
+
+- 🛠️ **Edit & Delete with Blog Key**  
+  Only the holder of the blog's key can edit or delete their post. Keep it safe!
+
+- 💬 **Comment Anonymously**  
+  Readers can comment on blogs without logging in.
+
+- ❤️ **Unlimited Likes**  
+  Users can like a blog as many times as they want — no limits on appreciation.
+
+- 👓 **Read Blogs that Make Sense**  
+  Users can freely read and interact with posted blogs.
+
+## 🛡️ Blog Key System
+
+When a blog is posted, a **unique blog key** is generated and shown only once. This key allows the user to:
+
+- Edit their post.
+- Delete their post.
+
+Without this key, the post becomes permanent and immutable to the public.
+
+## 🧠 Anonymous Identity
+
+Users can optionally generate a custom anonymous identity:
+- Appears on all posts/comments by that user.
+- Not linked to any real-world identity or account.
+- Can be regenerated anytime for a fresh persona.
+
+## 📦 Getting Started
 
 ```bash
+git clone https://github.com/your-username/large.git
+cd large
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔒 Environment Variables
+```env
+DATABASE_URL=""
+BLOB_READ_WRITE_TOKEN=""
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+NEXT_PUBLIC_BLOB_URL=""
+NEXT_PUBLIC_BLOB_PROTOCOL=""
+NEXT_PUBLIC_BLOB_HOSTNAME=""
+NEXT_PUBLIC_BLOB_PATHNAME=""
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧰 Tech Stack
 
-## Learn More
+- **Next.js** – React framework for building full-stack web applications.
+- **Tailwind CSS** – Utility-first CSS framework for rapid and responsive UI design.
+- **Drizzle ORM** – Lightweight, TypeScript-native ORM for SQL databases.
+- **Neon** – Serverless PostgreSQL database, ideal for modern web apps.
+- **Vercel Blob** – Managed file storage for handling uploads like images or documents.
+- **Vercel** – Deployment platform optimized for Next.js apps with serverless capabilities.
 
-To learn more about Next.js, take a look at the following resources:
+## 🙌 Credits
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Developer**: [@mkcalendario-strat](https://github.com/mkcalendario-strat) / [@markcalendario](https://github.com/markcalendario)
+- **Built at**: [Stratpoint Technologies](https://www.stratpoint.com)
