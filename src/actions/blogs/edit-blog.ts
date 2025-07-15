@@ -66,6 +66,7 @@ export default async function editBlog({
     }
 
     revalidatePath("/blogs");
+    revalidatePath("/blogs/[id]");
     const editedId = result[0].editedId;
     return {
       success: true,
